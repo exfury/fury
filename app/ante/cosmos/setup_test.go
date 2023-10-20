@@ -19,25 +19,25 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/app/ante"
-	evmante "github.com/evmos/evmos/v15/app/ante/evm"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	"github.com/evmos/evmos/v15/encoding"
-	"github.com/evmos/evmos/v15/ethereum/eip712"
-	"github.com/evmos/evmos/v15/testutil"
-	"github.com/evmos/evmos/v15/types"
-	"github.com/evmos/evmos/v15/utils"
-	"github.com/evmos/evmos/v15/x/evm/statedb"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/app/ante"
+	evmante "github.com/exfury/fury/v15/app/ante/evm"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/encoding"
+	"github.com/exfury/fury/v15/ethereum/eip712"
+	"github.com/exfury/fury/v15/testutil"
+	"github.com/exfury/fury/v15/types"
+	"github.com/exfury/fury/v15/utils"
+	"github.com/exfury/fury/v15/x/evm/statedb"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
 )
 
 type AnteTestSuite struct {
 	suite.Suite
 
 	ctx             sdk.Context
-	app             *app.Evmos
+	app             *app.Fury
 	clientCtx       client.Context
 	anteHandler     sdk.AnteHandler
 	ethSigner       ethtypes.Signer
@@ -61,7 +61,7 @@ func (suite *AnteTestSuite) SetupTest() {
 	suite.Require().NoError(err)
 	suite.priv = priv
 
-	suite.app = app.EthSetup(checkTx, func(app *app.Evmos, genesis simapp.GenesisState) simapp.GenesisState {
+	suite.app = app.EthSetup(checkTx, func(app *app.Fury, genesis simapp.GenesisState) simapp.GenesisState {
 		if suite.enableFeemarket {
 			// setup feemarketGenesis params
 			feemarketGenesis := feemarkettypes.DefaultGenesisState()

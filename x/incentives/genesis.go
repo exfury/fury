@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package incentives
 
@@ -11,8 +11,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 
-	"github.com/evmos/evmos/v15/x/incentives/keeper"
-	"github.com/evmos/evmos/v15/x/incentives/types"
+	"github.com/exfury/fury/v15/x/incentives/keeper"
+	"github.com/exfury/fury/v15/x/incentives/types"
 )
 
 // InitGenesis import module genesis

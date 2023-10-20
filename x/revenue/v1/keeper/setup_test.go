@@ -12,12 +12,12 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/evmos/evmos/v15/app"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/utils"
-	evm "github.com/evmos/evmos/v15/x/evm/types"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
-	"github.com/evmos/evmos/v15/x/revenue/v1/types"
+	"github.com/exfury/fury/v15/app"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/utils"
+	evm "github.com/exfury/fury/v15/x/evm/types"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
+	"github.com/exfury/fury/v15/x/revenue/v1/types"
 
 	"github.com/stretchr/testify/suite"
 )
@@ -27,7 +27,7 @@ type KeeperTestSuite struct {
 
 	ctx sdk.Context
 
-	app            *app.Evmos
+	app            *app.Fury
 	queryClient    types.QueryClient
 	queryClientEvm evm.QueryClient
 	address        common.Address

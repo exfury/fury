@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package backend
 
 import (
@@ -21,11 +21,11 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	rpctypes "github.com/evmos/evmos/v15/rpc/types"
-	"github.com/evmos/evmos/v15/server/config"
-	"github.com/evmos/evmos/v15/types"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	rpctypes "github.com/exfury/fury/v15/rpc/types"
+	"github.com/exfury/fury/v15/server/config"
+	"github.com/exfury/fury/v15/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 )
 
 // Accounts returns the list of accounts available to this node.

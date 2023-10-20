@@ -1,13 +1,13 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package network
 
 import (
-	testtx "github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/utils"
+	testtx "github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/utils"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	evmostypes "github.com/evmos/evmos/v15/types"
+	furytypes "github.com/exfury/fury/v15/types"
 )
 
 // Config defines the configuration for a chain.
@@ -39,7 +39,7 @@ type ConfigOption func(*Config)
 
 // WithChainID sets a custom chainID for the network. It panics if the chainID is invalid.
 func WithChainID(chainID string) ConfigOption {
-	_, err := evmostypes.ParseChainID(chainID)
+	_, err := furytypes.ParseChainID(chainID)
 	if err != nil {
 		panic(err)
 	}

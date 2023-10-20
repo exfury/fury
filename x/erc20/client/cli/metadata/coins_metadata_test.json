@@ -1,21 +1,21 @@
 {
   "metadata": [
     {
-      "description": "The native staking and governance token of the Evmos chain",
+      "description": "The native staking and governance token of the Fury chain",
       "denom_units": [
         {
-          "denom": "aevmos",
+          "denom": "afury",
           "exponent": 0
         },
         {
-          "denom": "evmos",
+          "denom": "fury",
           "exponent": 18
         }
       ],
-      "base": "aevmos",
-      "display": "aevmos",
-      "name": "aevmos",
-      "symbol": "EVMOS"
+      "base": "afury",
+      "display": "afury",
+      "name": "afury",
+      "symbol": "FURY"
     },
     {
       "description": "The native staking and governance token of the Osmosis chain",

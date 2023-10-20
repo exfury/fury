@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/x/incentives/types"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/x/incentives/types"
 
 	"github.com/stretchr/testify/require"
 )

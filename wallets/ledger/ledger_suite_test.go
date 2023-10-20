@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package ledger_test
 
@@ -20,16 +20,16 @@ import (
 	auxTx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	bankTypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/evmos/evmos/v15/wallets/ledger"
-	"github.com/evmos/evmos/v15/wallets/ledger/mocks"
-	"github.com/evmos/evmos/v15/wallets/usbwallet"
+	"github.com/exfury/fury/v15/wallets/ledger"
+	"github.com/exfury/fury/v15/wallets/ledger/mocks"
+	"github.com/exfury/fury/v15/wallets/usbwallet"
 )
 
 type LedgerTestSuite struct {
 	suite.Suite
 	txAmino    []byte
 	txProtobuf []byte
-	ledger     ledger.EvmosSECP256K1
+	ledger     ledger.FurySECP256K1
 	mockWallet *mocks.Wallet
 	hrp        string
 }
@@ -39,7 +39,7 @@ func TestLedgerTestSuite(t *testing.T) {
 }
 
 func (suite *LedgerTestSuite) SetupTest() {
-	suite.hrp = "evmos"
+	suite.hrp = "fury"
 
 	suite.txAmino = suite.getMockTxAmino()
 	suite.txProtobuf = suite.getMockTxProtobuf()
@@ -49,7 +49,7 @@ func (suite *LedgerTestSuite) SetupTest() {
 
 	mockWallet := new(mocks.Wallet)
 	suite.mockWallet = mockWallet
-	suite.ledger = ledger.EvmosSECP256K1{Hub: hub, PrimaryWallet: mockWallet}
+	suite.ledger = ledger.FurySECP256K1{Hub: hub, PrimaryWallet: mockWallet}
 }
 
 func (suite *LedgerTestSuite) newPubKey(pk string) (res cryptoTypes.PubKey) {
@@ -66,7 +66,7 @@ func (suite *LedgerTestSuite) getMockTxAmino() []byte {
 	tmp := whitespaceRegex.ReplaceAllString(
 		`{
 			"account_number": "0",
-			"chain_id":"evmos_9000-1",
+			"chain_id":"fury_9000-1",
 			"fee":{
 				"amount":[{"amount":"150","denom":"atom"}],
 				"gas":"20000"
@@ -145,7 +145,7 @@ func (suite *LedgerTestSuite) getMockTxProtobuf() []byte {
 	signBytes, err := auxTx.DirectSignBytes(
 		bodyBytes,
 		authInfoBytes,
-		"evmos_9000-1",
+		"fury_9000-1",
 		0,
 	)
 	suite.Require().NoError(err)

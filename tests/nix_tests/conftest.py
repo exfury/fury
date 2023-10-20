@@ -1,12 +1,12 @@
 import pytest
 
-from .network import setup_evmos, setup_geth
+from .network import setup_fury, setup_geth
 
 
 @pytest.fixture(scope="session")
-def evmos(tmp_path_factory):
-    path = tmp_path_factory.mktemp("evmos")
-    yield from setup_evmos(path, 26650)
+def fury(tmp_path_factory):
+    path = tmp_path_factory.mktemp("fury")
+    yield from setup_fury(path, 26650)
 
 
 @pytest.fixture(scope="session")
@@ -15,34 +15,34 @@ def geth(tmp_path_factory):
     yield from setup_geth(path, 8545)
 
 
-@pytest.fixture(scope="session", params=["evmos", "evmos-ws"])
-def evmos_rpc_ws(request, evmos):
+@pytest.fixture(scope="session", params=["fury", "fury-ws"])
+def fury_rpc_ws(request, fury):
     """
-    run on both evmos and evmos websocket
+    run on both fury and fury websocket
     """
     provider = request.param
-    if provider == "evmos":
-        yield evmos
-    elif provider == "evmos-ws":
-        evmos_ws = evmos.copy()
-        evmos_ws.use_websocket()
-        yield evmos_ws
+    if provider == "fury":
+        yield fury
+    elif provider == "fury-ws":
+        fury_ws = fury.copy()
+        fury_ws.use_websocket()
+        yield fury_ws
     else:
         raise NotImplementedError
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-ws", "geth"])
-def cluster(request, evmos, geth):
+@pytest.fixture(scope="module", params=["fury", "fury-ws", "geth"])
+def cluster(request, fury, geth):
     """
-    run on evmos, evmos websocket and geth
+    run on fury, fury websocket and geth
     """
     provider = request.param
-    if provider == "evmos":
-        yield evmos
-    elif provider == "evmos-ws":
-        evmos_ws = evmos.copy()
-        evmos_ws.use_websocket()
-        yield evmos_ws
+    if provider == "fury":
+        yield fury
+    elif provider == "fury-ws":
+        fury_ws = fury.copy()
+        fury_ws.use_websocket()
+        yield fury_ws
     elif provider == "geth":
         yield geth
     else:

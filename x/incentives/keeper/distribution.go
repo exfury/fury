@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package keeper
 
@@ -15,7 +15,7 @@ import (
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/evmos/evmos/v15/x/incentives/types"
+	"github.com/exfury/fury/v15/x/incentives/types"
 )
 
 // DistributeRewards transfers the allocated rewards to the participants of a given
@@ -210,7 +210,7 @@ func (k Keeper) rewardParticipants(
 					continue
 				}
 
-				// Cap rewards in mint denom (i.e. aevmos) to receive only up to 100% of
+				// Cap rewards in mint denom (i.e. afury) to receive only up to 100% of
 				// the participant's gas spent and prevent gaming
 				if mintDenom == allocation.Denom {
 					rewardCap := cumulativeGas.Mul(rewardScaler)

@@ -1,11 +1,11 @@
 { pkgs
 , config
-, evmos ? (import ../. { inherit pkgs; })
+, fury ? (import ../. { inherit pkgs; })
 }: rec {
-  start-evmos = pkgs.writeShellScriptBin "start-evmos" ''
-    # rely on environment to provide evmosd
+  start-fury = pkgs.writeShellScriptBin "start-fury" ''
+    # rely on environment to provide furyd
     export PATH=${pkgs.test-env}/bin:$PATH
-    ${../scripts/start-evmos.sh} ${config.evmos-config} ${config.dotenv} $@
+    ${../scripts/start-fury.sh} ${config.fury-config} ${config.dotenv} $@
   '';
   start-geth = pkgs.writeShellScriptBin "start-geth" ''
     export PATH=${pkgs.test-env}/bin:${pkgs.go-ethereum}/bin:$PATH
@@ -14,6 +14,6 @@
   '';
   start-scripts = pkgs.symlinkJoin {
     name = "start-scripts";
-    paths = [ start-evmos start-geth ];
+    paths = [ start-fury start-geth ];
   };
 }

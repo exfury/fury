@@ -4,11 +4,11 @@ import (
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/testutil"
-	"github.com/evmos/evmos/v15/utils"
-	"github.com/evmos/evmos/v15/x/epochs/types"
-	evm "github.com/evmos/evmos/v15/x/evm/types"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/testutil"
+	"github.com/exfury/fury/v15/utils"
+	"github.com/exfury/fury/v15/x/epochs/types"
+	evm "github.com/exfury/fury/v15/x/evm/types"
 )
 
 // Test helpers

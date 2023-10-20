@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package rpc
 
 import (
@@ -29,11 +29,11 @@ import (
 	rpcclient "github.com/cometbft/cometbft/rpc/jsonrpc/client"
 	tmtypes "github.com/cometbft/cometbft/types"
 
-	"github.com/evmos/evmos/v15/rpc/ethereum/pubsub"
-	rpcfilters "github.com/evmos/evmos/v15/rpc/namespaces/ethereum/eth/filters"
-	"github.com/evmos/evmos/v15/rpc/types"
-	"github.com/evmos/evmos/v15/server/config"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	"github.com/exfury/fury/v15/rpc/ethereum/pubsub"
+	rpcfilters "github.com/exfury/fury/v15/rpc/namespaces/ethereum/eth/filters"
+	"github.com/exfury/fury/v15/rpc/types"
+	"github.com/exfury/fury/v15/server/config"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 )
 
 type WebsocketsServer interface {

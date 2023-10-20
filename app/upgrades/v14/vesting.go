@@ -1,12 +1,12 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package v14
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	vestingkeeper "github.com/evmos/evmos/v15/x/vesting/keeper"
-	vestingtypes "github.com/evmos/evmos/v15/x/vesting/types"
+	vestingkeeper "github.com/exfury/fury/v15/x/vesting/keeper"
+	vestingtypes "github.com/exfury/fury/v15/x/vesting/types"
 )
 
 // UpdateVestingFunders updates the vesting funders for accounts managed by the team

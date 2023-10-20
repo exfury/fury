@@ -17,18 +17,18 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/contracts"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	"github.com/evmos/evmos/v15/encoding"
-	"github.com/evmos/evmos/v15/server/config"
-	"github.com/evmos/evmos/v15/testutil"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	evmostypes "github.com/evmos/evmos/v15/types"
-	"github.com/evmos/evmos/v15/utils"
-	epochstypes "github.com/evmos/evmos/v15/x/epochs/types"
-	evm "github.com/evmos/evmos/v15/x/evm/types"
-	"github.com/evmos/evmos/v15/x/incentives/types"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/contracts"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/encoding"
+	"github.com/exfury/fury/v15/server/config"
+	"github.com/exfury/fury/v15/testutil"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	furytypes "github.com/exfury/fury/v15/types"
+	"github.com/exfury/fury/v15/utils"
+	epochstypes "github.com/exfury/fury/v15/x/epochs/types"
+	evm "github.com/exfury/fury/v15/x/evm/types"
+	"github.com/exfury/fury/v15/x/incentives/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -104,7 +104,7 @@ func (suite *KeeperTestSuite) DoSetupTest(t require.TestingT) {
 		suite.app.EpochsKeeper.SetEpochInfo(suite.ctx, epoch)
 	}
 
-	acc := &evmostypes.EthAccount{
+	acc := &furytypes.EthAccount{
 		BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(suite.address.Bytes()), nil, 0, 0),
 		CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 	}

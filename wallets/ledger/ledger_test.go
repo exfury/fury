@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package ledger_test
 
@@ -8,11 +8,11 @@ import (
 	gethaccounts "github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/encoding"
-	"github.com/evmos/evmos/v15/ethereum/eip712"
-	"github.com/evmos/evmos/v15/wallets/accounts"
-	"github.com/evmos/evmos/v15/wallets/ledger"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/encoding"
+	"github.com/exfury/fury/v15/ethereum/eip712"
+	"github.com/exfury/fury/v15/wallets/accounts"
+	"github.com/exfury/fury/v15/wallets/ledger"
 )
 
 // Test Mnemonic:
@@ -25,7 +25,7 @@ func init() {
 	sdk.GetConfig().SetBech32PrefixForAccount("cosmos", "")
 }
 
-func (suite *LedgerTestSuite) TestEvmosLedgerDerivation() {
+func (suite *LedgerTestSuite) TestFuryLedgerDerivation() {
 	testCases := []struct {
 		name     string
 		mockFunc func()
@@ -41,7 +41,7 @@ func (suite *LedgerTestSuite) TestEvmosLedgerDerivation() {
 	for _, tc := range testCases {
 		suite.Run(tc.name, func() {
 			suite.SetupTest() // reset
-			derivationFunc := ledger.EvmosLedgerDerivation()
+			derivationFunc := ledger.FuryLedgerDerivation()
 			_, err := derivationFunc()
 			if tc.expPass {
 				suite.Require().NoError(err)
@@ -218,7 +218,7 @@ func (suite *LedgerTestSuite) TestGetAddressPubKeySECP256K1() {
 	suite.Require().NoError(err)
 
 	addr := crypto.PubkeyToAddress(privKey.PublicKey)
-	expAddr, err := sdk.Bech32ifyAddressBytes("evmos", common.HexToAddress(addr.String()).Bytes())
+	expAddr, err := sdk.Bech32ifyAddressBytes("fury", common.HexToAddress(addr.String()).Bytes())
 	suite.Require().NoError(err)
 
 	testCases := []struct {

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CHAINID="${CHAIN_ID:-evmos_9000-1}"
+CHAINID="${CHAIN_ID:-fury_9000-1}"
 MONIKER="localtestnet"
 KEYRING="test"          # remember to change to other types of keyring like 'file' in-case exposing to outside world, otherwise your balance will be wiped quickly. The keyring test does not require private key to steal tokens from you
 KEYALGO="eth_secp256k1" #gitleaks:allow
@@ -11,7 +11,7 @@ TRACE=""
 PRUNING="default"
 #PRUNING="custom"
 
-CHAINDIR="$HOME/.evmosd"
+CHAINDIR="$HOME/.furyd"
 GENESIS="$CHAINDIR/config/genesis.json"
 TMP_GENESIS="$CHAINDIR/config/tmp_genesis.json"
 APP_TOML="$CHAINDIR/config/app.toml"
@@ -47,29 +47,29 @@ command -v jq >/dev/null 2>&1 || {
 set -e
 
 # Set client config
-evmosd config keyring-backend "$KEYRING"
-evmosd config chain-id "$CHAINID"
+furyd config keyring-backend "$KEYRING"
+furyd config chain-id "$CHAINID"
 
 # Import keys from mnemonics
-echo "$VAL_MNEMONIC" | evmosd keys add "$VAL_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$VAL_MNEMONIC" | furyd keys add "$VAL_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
 
 # Store the validator address in a variable to use it later
-node_address=$(evmosd keys show -a "$VAL_KEY")
+node_address=$(furyd keys show -a "$VAL_KEY")
 
-echo "$USER1_MNEMONIC" | evmosd keys add "$USER1_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
-echo "$USER2_MNEMONIC" | evmosd keys add "$USER2_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
-echo "$USER3_MNEMONIC" | evmosd keys add "$USER3_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
-echo "$USER4_MNEMONIC" | evmosd keys add "$USER4_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER1_MNEMONIC" | furyd keys add "$USER1_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER2_MNEMONIC" | furyd keys add "$USER2_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER3_MNEMONIC" | furyd keys add "$USER3_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER4_MNEMONIC" | furyd keys add "$USER4_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
 
-# Set moniker and chain-id for Evmos (Moniker can be anything, chain-id must be an integer)
-evmosd init "$MONIKER" --chain-id "$CHAINID"
+# Set moniker and chain-id for Fury (Moniker can be anything, chain-id must be an integer)
+furyd init "$MONIKER" --chain-id "$CHAINID"
 
-# Change parameter token denominations to aevmos
-jq '.app_state.staking.params.bond_denom="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-jq '.app_state.crisis.constant_fee.denom="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-jq '.app_state.gov.deposit_params.min_deposit[0].denom="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-jq '.app_state.evm.params.evm_denom="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-jq '.app_state.inflation.params.mint_denom="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+# Change parameter token denominations to afury
+jq '.app_state.staking.params.bond_denom="afury"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+jq '.app_state.crisis.constant_fee.denom="afury"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+jq '.app_state.gov.deposit_params.min_deposit[0].denom="afury"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+jq '.app_state.evm.params.evm_denom="afury"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+jq '.app_state.inflation.params.mint_denom="afury"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 # set gov proposing && voting period
 jq '.app_state.gov.deposit_params.max_deposit_period="30s"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
@@ -78,7 +78,7 @@ jq '.app_state.gov.voting_params.voting_period="30s"' "$GENESIS" >"$TMP_GENESIS"
 # When upgrade to cosmos-sdk v0.47, use gov.params to edit the deposit params
 # check if the 'params' field exists in the genesis file
 if jq '.app_state.gov.params != null' "$GENESIS" | grep -q "true"; then
-  jq '.app_state.gov.params.min_deposit[0].denom="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+  jq '.app_state.gov.params.min_deposit[0].denom="afury"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
   jq '.app_state.gov.params.max_deposit_period="30s"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
   jq '.app_state.gov.params.voting_period="30s"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 fi
@@ -99,18 +99,18 @@ jq '.app_state.claims.params.duration_of_decay="1000000s"' "$GENESIS" >"$TMP_GEN
 jq '.app_state.claims.params.duration_until_decay="100000s"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 # Claim module account:
-# 0xA61808Fe40fEb8B3433778BBC2ecECCAA47c8c47 || evmos15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz
-jq -r --arg amount_to_claim "$amount_to_claim" '.app_state.bank.balances += [{"address":"evmos15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz","coins":[{"denom":"aevmos", "amount":$amount_to_claim}]}]' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+# 0xA61808Fe40fEb8B3433778BBC2ecECCAA47c8c47 || fury15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz
+jq -r --arg amount_to_claim "$amount_to_claim" '.app_state.bank.balances += [{"address":"fury15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz","coins":[{"denom":"afury", "amount":$amount_to_claim}]}]' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 # disable produce empty block
 sed -i.bak 's/create_empty_blocks = true/create_empty_blocks = false/g' "$CONFIG_TOML"
 
 # Allocate genesis accounts (cosmos formatted addresses)
-evmosd add-genesis-account "$(evmosd keys show "$VAL_KEY" -a --keyring-backend "$KEYRING")" 100000000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER1_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER2_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER3_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER4_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
+furyd add-genesis-account "$(furyd keys show "$VAL_KEY" -a --keyring-backend "$KEYRING")" 100000000000000000000000000afury --keyring-backend "$KEYRING"
+furyd add-genesis-account "$(furyd keys show "$USER1_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000afury --keyring-backend "$KEYRING"
+furyd add-genesis-account "$(furyd keys show "$USER2_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000afury --keyring-backend "$KEYRING"
+furyd add-genesis-account "$(furyd keys show "$USER3_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000afury --keyring-backend "$KEYRING"
+furyd add-genesis-account "$(furyd keys show "$USER4_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000afury --keyring-backend "$KEYRING"
 
 # Update total supply with claim values
 # Bc is required to add this big numbers
@@ -133,13 +133,13 @@ sed -i.bak 's/127.0.0.1/0.0.0.0/g' "$APP_TOML"
 sed -i.bak 's/timeout_commit = "3s"/timeout_commit = "1s"/g' "$CONFIG_TOML"
 
 # Sign genesis transaction
-evmosd gentx "$VAL_KEY" 1000000000000000000000aevmos --keyring-backend "$KEYRING" --chain-id "$CHAINID"
+furyd gentx "$VAL_KEY" 1000000000000000000000afury --keyring-backend "$KEYRING" --chain-id "$CHAINID"
 ## In case you want to create multiple validators at genesis
-## 1. Back to `evmosd keys add` step, init more keys
-## 2. Back to `evmosd add-genesis-account` step, add balance for those
-## 3. Clone this ~/.evmosd home directory into some others, let's say `~/.clonedEvmosd`
+## 1. Back to `furyd keys add` step, init more keys
+## 2. Back to `furyd add-genesis-account` step, add balance for those
+## 3. Clone this ~/.furyd home directory into some others, let's say `~/.clonedFuryd`
 ## 4. Run `gentx` in each of those folders
-## 5. Copy the `gentx-*` folders under `~/.clonedEvmosd/config/gentx/` folders into the original `~/.evmosd/config/gentx`
+## 5. Copy the `gentx-*` folders under `~/.clonedFuryd/config/gentx/` folders into the original `~/.furyd/config/gentx`
 
 # Enable the APIs for the tests to be successful
 sed -i.bak 's/enable = false/enable = true/g' "$APP_TOML"
@@ -148,14 +148,14 @@ sed -i.bak 's/enable = false/enable = true/g' "$APP_TOML"
 grep -q -F '[memiavl]' "$APP_TOML" && sed -i.bak '/\[memiavl\]/,/^\[/ s/enable = true/enable = false/' "$APP_TOML"
 
 # Collect genesis tx
-evmosd collect-gentxs
+furyd collect-gentxs
 
 # Run this to ensure everything worked and that the genesis file is setup correctly
-evmosd validate-genesis
+furyd validate-genesis
 
 # Start the node
-evmosd start "$TRACE" \
+furyd start "$TRACE" \
   --log_level $LOGLEVEL \
-  --minimum-gas-prices=0.0001aevmos \
+  --minimum-gas-prices=0.0001afury \
   --json-rpc.api eth,txpool,personal,net,debug,web3 \
   --chain-id "$CHAINID"

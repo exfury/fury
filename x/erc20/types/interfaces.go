@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package types
 
@@ -16,9 +16,9 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/core/vm"
 
-	claimstypes "github.com/evmos/evmos/v15/x/claims/types"
-	"github.com/evmos/evmos/v15/x/evm/statedb"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	claimstypes "github.com/exfury/fury/v15/x/claims/types"
+	"github.com/exfury/fury/v15/x/evm/statedb"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 )
 
 // AccountKeeper defines the expected interface needed to retrieve account info.

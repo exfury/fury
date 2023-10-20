@@ -1,4 +1,4 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
+// Copyright Tharsis Labs Ltd.(Fury)
 // SPDX-License-Identifier:LGPL-3.0-only
 
 package keeper
@@ -14,7 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/evmos/evmos/v15/x/revenue/v1/types"
+	"github.com/exfury/fury/v15/x/revenue/v1/types"
 )
 
 var _ types.MsgServer = &Keeper{}

@@ -20,11 +20,11 @@ import (
 	"github.com/cometbft/cometbft/libs/log"
 	tmtypes "github.com/cometbft/cometbft/types"
 
-	"github.com/evmos/evmos/v15/encoding"
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/encoding"
+	"github.com/exfury/fury/v15/utils"
 )
 
-func TestEvmosExport(t *testing.T) {
+func TestFuryExport(t *testing.T) {
 	// create public key
 	privVal := mock.NewPV()
 	pubKey, err := privVal.GetPubKey()
@@ -44,7 +44,7 @@ func TestEvmosExport(t *testing.T) {
 
 	db := dbm.NewMemDB()
 	chainID := utils.MainnetChainID + "-1"
-	app := NewEvmos(
+	app := NewFury(
 		log.NewTMLogger(log.NewSyncWriter(os.Stdout)),
 		db, nil, true, map[int64]bool{},
 		DefaultNodeHome, 0,
@@ -69,7 +69,7 @@ func TestEvmosExport(t *testing.T) {
 	app.Commit()
 
 	// Making a new app object with the db, so that initchain hasn't been called
-	app2 := NewEvmos(
+	app2 := NewFury(
 		log.NewTMLogger(log.NewSyncWriter(os.Stdout)),
 		db, nil, true, map[int64]bool{},
 		DefaultNodeHome, 0,

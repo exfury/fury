@@ -5,11 +5,11 @@ from typing import Any, Dict, List, NamedTuple
 
 from pystarport import ports
 
-from .network import CosmosChain, Hermes, setup_custom_evmos
+from .network import CosmosChain, Hermes, setup_custom_fury
 from .utils import ADDRS, eth_to_bech32, wait_for_port
 
-# EVMOS_IBC_DENOM IBC denom of aevmos in crypto-org-chain
-EVMOS_IBC_DENOM = "ibc/8EAC8061F4499F03D2D1419A3E73D346289AE9DB89CAB1486B72539572B1915E"
+# FURY_IBC_DENOM IBC denom of afury in crypto-org-chain
+FURY_IBC_DENOM = "ibc/8EAC8061F4499F03D2D1419A3E73D346289AE9DB89CAB1486B72539572B1915E"
 RATIO = 10**10
 # IBC_CHAINS_META metadata of cosmos chains to setup these for IBC tests
 IBC_CHAINS_META = {
@@ -43,23 +43,23 @@ class IBCNetwork(NamedTuple):
 
 def prepare_network(tmp_path: Path, file: str, other_chains_names: List[str]):
     file = f"configs/{file}.jsonnet"
-    gen = setup_custom_evmos(tmp_path, 26700, Path(__file__).parent / file)
-    evmos = next(gen)
-    chains = {"evmos": evmos}
+    gen = setup_custom_fury(tmp_path, 26700, Path(__file__).parent / file)
+    fury = next(gen)
+    chains = {"fury": fury}
     # wait for grpc ready
-    wait_for_port(ports.grpc_port(evmos.base_port(0)))  # evmos grpc
+    wait_for_port(ports.grpc_port(fury.base_port(0)))  # fury grpc
 
     # relayer
-    hermes = Hermes(evmos.base_dir.parent / "relayer.toml")
+    hermes = Hermes(fury.base_dir.parent / "relayer.toml")
 
-    chains_to_connect = ["evmos_9000-1"]
+    chains_to_connect = ["fury_9000-1"]
 
-    # set up the other chains to connect to evmos
+    # set up the other chains to connect to fury
     for chain in other_chains_names:
         meta = IBC_CHAINS_META[chain]
         other_chain_name = meta["chain_name"]
         chain_instance = CosmosChain(
-            evmos.base_dir.parent / other_chain_name, meta["bin"]
+            fury.base_dir.parent / other_chain_name, meta["bin"]
         )
         # wait for grpc ready in other_chains
         wait_for_port(ports.grpc_port(chain_instance.base_port(0)))
@@ -81,7 +81,7 @@ def prepare_network(tmp_path: Path, file: str, other_chains_names: List[str]):
                     "--chain",
                     other_chain_name,
                     "--mnemonic-file",
-                    evmos.base_dir.parent / "relayer.env",
+                    fury.base_dir.parent / "relayer.env",
                     "--overwrite",
                 ],
                 check=True,
@@ -110,7 +110,7 @@ def prepare_network(tmp_path: Path, file: str, other_chains_names: List[str]):
                 ]
             )
 
-    evmos.supervisorctl("start", "relayer-demo")
+    fury.supervisorctl("start", "relayer-demo")
     wait_for_port(hermes.port)
     yield IBCNetwork(chains, hermes)
 
@@ -125,9 +125,9 @@ def assert_ready(ibc):
 
 def hermes_transfer(ibc, other_chain_name="chainmain-1", other_chain_denom="basecro"):
     assert_ready(ibc)
-    # chainmain-1 -> evmos_9000-1
+    # chainmain-1 -> fury_9000-1
     my_ibc0 = other_chain_name
-    my_ibc1 = "evmos_9000-1"
+    my_ibc1 = "fury_9000-1"
     my_channel = "channel-0"
     dst_addr = eth_to_bech32(ADDRS["signer2"])
     src_amount = 10

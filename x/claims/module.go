@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package claims
 
@@ -20,9 +20,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/evmos/evmos/v15/x/claims/client/cli"
-	"github.com/evmos/evmos/v15/x/claims/keeper"
-	"github.com/evmos/evmos/v15/x/claims/types"
+	"github.com/exfury/fury/v15/x/claims/client/cli"
+	"github.com/exfury/fury/v15/x/claims/keeper"
+	"github.com/exfury/fury/v15/x/claims/types"
 )
 
 // consensusVersion defines the current x/claims module consensus version.

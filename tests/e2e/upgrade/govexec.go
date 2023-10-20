@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package upgrade
 
@@ -51,14 +51,14 @@ func (m *Manager) CreateSubmitProposalExec(targetVersion, chainID string, upgrad
 		proposalType = "submit-proposal"
 	}
 	cmd := []string{
-		"evmosd",
+		"furyd",
 		"tx",
 		"gov",
 		proposalType,
 		"software-upgrade",
 		targetVersion,
 		"--title=\"TEST\"",
-		"--deposit=10000000aevmos",
+		"--deposit=10000000afury",
 		"--description=\"Test upgrade proposal\"",
 		fmt.Sprintf("--upgrade-height=%d", upgradeHeight),
 		upgradeInfo,
@@ -77,18 +77,18 @@ func (m *Manager) CreateSubmitProposalExec(targetVersion, chainID string, upgrad
 // CreateDepositProposalExec creates a gov tx to deposit for the proposal with the given id
 func (m *Manager) CreateDepositProposalExec(chainID string, id int) (string, error) {
 	cmd := []string{
-		"evmosd",
+		"furyd",
 		"tx",
 		"gov",
 		"deposit",
 		fmt.Sprint(id),
-		"10000000aevmos",
+		"10000000afury",
 		"--from=mykey",
 		fmt.Sprintf("--chain-id=%s", chainID),
 		"--yes",
 		"--keyring-backend=test",
 		"--log_format=json",
-		"--fees=500aevmos",
+		"--fees=500afury",
 		"--gas=500000",
 	}
 
@@ -98,7 +98,7 @@ func (m *Manager) CreateDepositProposalExec(chainID string, id int) (string, err
 // CreateVoteProposalExec creates gov tx to vote 'yes' on the proposal with the given id
 func (m *Manager) CreateVoteProposalExec(chainID string, id int, flags ...string) (string, error) {
 	cmd := []string{
-		"evmosd",
+		"furyd",
 		"tx",
 		"gov",
 		"vote",

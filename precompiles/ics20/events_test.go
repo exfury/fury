@@ -7,10 +7,10 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/evmos/evmos/v15/precompiles/authorization"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/ics20"
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/precompiles/authorization"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/ics20"
+	"github.com/exfury/fury/v15/utils"
 )
 
 func (s *PrecompileTestSuite) TestTransferEvent() {
@@ -218,7 +218,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowanceEvent() {
 		postCheck   func()
 	}{
 		{
-			"success - increased allowance by 1 Evmos",
+			"success - increased allowance by 1 Fury",
 			func() []interface{} {
 				path := NewTransferPath(s.chainA, s.chainB)
 				s.coordinator.Setup(path)
@@ -269,7 +269,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowanceEvent() {
 		postCheck   func()
 	}{
 		{
-			"success - decrease allowance by 0.5 Evmos",
+			"success - decrease allowance by 0.5 Fury",
 			func() []interface{} {
 				path := NewTransferPath(s.chainA, s.chainB)
 				s.coordinator.Setup(path)

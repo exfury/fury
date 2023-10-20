@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package rpc
 
 import (
@@ -10,16 +10,16 @@ import (
 
 	"github.com/ethereum/go-ethereum/rpc"
 
-	"github.com/evmos/evmos/v15/rpc/backend"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/debug"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/eth"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/eth/filters"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/miner"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/net"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/personal"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/txpool"
-	"github.com/evmos/evmos/v15/rpc/namespaces/ethereum/web3"
-	"github.com/evmos/evmos/v15/types"
+	"github.com/exfury/fury/v15/rpc/backend"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/debug"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/eth"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/eth/filters"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/miner"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/net"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/personal"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/txpool"
+	"github.com/exfury/fury/v15/rpc/namespaces/ethereum/web3"
+	"github.com/exfury/fury/v15/types"
 
 	rpcclient "github.com/cometbft/cometbft/rpc/jsonrpc/client"
 )

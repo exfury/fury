@@ -1,12 +1,12 @@
 package ante_test
 
 import (
-	ethante "github.com/evmos/evmos/v15/app/ante/evm"
-	"github.com/evmos/evmos/v15/encoding"
-	"github.com/evmos/evmos/v15/types"
+	ethante "github.com/exfury/fury/v15/app/ante/evm"
+	"github.com/exfury/fury/v15/encoding"
+	"github.com/exfury/fury/v15/types"
 
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/app/ante"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/app/ante"
 )
 
 func (suite *AnteTestSuite) TestValidateHandlerOptions() {

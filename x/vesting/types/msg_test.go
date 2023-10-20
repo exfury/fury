@@ -10,8 +10,8 @@ import (
 	sdkvesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	"github.com/stretchr/testify/suite"
 
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/x/vesting/types"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/x/vesting/types"
 )
 
 type MsgsTestSuite struct {

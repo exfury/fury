@@ -25,18 +25,18 @@ import (
 
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	"github.com/evmos/evmos/v15/server/config"
-	"github.com/evmos/evmos/v15/testutil"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/utils"
-	"github.com/evmos/evmos/v15/x/evm/statedb"
-	evm "github.com/evmos/evmos/v15/x/evm/types"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/server/config"
+	"github.com/exfury/fury/v15/testutil"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/utils"
+	"github.com/exfury/fury/v15/x/evm/statedb"
+	evm "github.com/exfury/fury/v15/x/evm/types"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
 
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/contracts"
-	"github.com/evmos/evmos/v15/x/erc20/types"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/contracts"
+	"github.com/exfury/fury/v15/x/erc20/types"
 
 	capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
 	transfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
@@ -50,7 +50,7 @@ type KeeperTestSuite struct {
 	suite.Suite
 
 	ctx              sdk.Context
-	app              *app.Evmos
+	app              *app.Fury
 	queryClientEvm   evm.QueryClient
 	queryClient      types.QueryClient
 	address          common.Address

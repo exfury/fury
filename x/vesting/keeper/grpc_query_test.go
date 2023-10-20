@@ -6,8 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"github.com/evmos/evmos/v15/testutil"
-	"github.com/evmos/evmos/v15/x/vesting/types"
+	"github.com/exfury/fury/v15/testutil"
+	"github.com/exfury/fury/v15/x/vesting/types"
 )
 
 func (suite *KeeperTestSuite) TestBalances() {
@@ -42,7 +42,7 @@ func (suite *KeeperTestSuite) TestBalances() {
 			name: "invalid address",
 			malleate: func() {
 				req = &types.QueryBalancesRequest{
-					Address: "evmos1",
+					Address: "fury1",
 				}
 			},
 			expPass:     false,

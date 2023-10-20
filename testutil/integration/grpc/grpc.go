@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package grpc
 
 import (
@@ -8,10 +8,10 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/evmos/evmos/v15/testutil/integration/network"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
-	revtypes "github.com/evmos/evmos/v15/x/revenue/v1/types"
+	"github.com/exfury/fury/v15/testutil/integration/network"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
+	revtypes "github.com/exfury/fury/v15/x/revenue/v1/types"
 )
 
 // Handler is an interface that defines the methods that are used to query

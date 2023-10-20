@@ -5,8 +5,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/testutil"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	v3 "github.com/evmos/evmos/v15/x/inflation/migrations/v3"
-	"github.com/evmos/evmos/v15/x/inflation/types"
+	v3 "github.com/exfury/fury/v15/x/inflation/migrations/v3"
+	"github.com/exfury/fury/v15/x/inflation/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package keeper_test
 
 import (
@@ -10,19 +10,19 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/evmos/evmos/v15/contracts"
-	"github.com/evmos/evmos/v15/precompiles/staking"
+	"github.com/exfury/fury/v15/contracts"
+	"github.com/exfury/fury/v15/precompiles/staking"
 
-	"github.com/evmos/evmos/v15/testutil/integration/factory"
-	"github.com/evmos/evmos/v15/testutil/integration/grpc"
-	testkeyring "github.com/evmos/evmos/v15/testutil/integration/keyring"
-	"github.com/evmos/evmos/v15/testutil/integration/network"
-	integrationutils "github.com/evmos/evmos/v15/testutil/integration/utils"
+	"github.com/exfury/fury/v15/testutil/integration/factory"
+	"github.com/exfury/fury/v15/testutil/integration/grpc"
+	testkeyring "github.com/exfury/fury/v15/testutil/integration/keyring"
+	"github.com/exfury/fury/v15/testutil/integration/network"
+	integrationutils "github.com/exfury/fury/v15/testutil/integration/utils"
 
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 )
 
 type IntegrationTestSuite struct {
@@ -32,8 +32,8 @@ type IntegrationTestSuite struct {
 	keyring     testkeyring.Keyring
 }
 
-// This test suite is meant to test the EVM module in the context of the EVMOS.
-// It uses the integration test framework to spin up a local EVMOS network and
+// This test suite is meant to test the EVM module in the context of the FURY.
+// It uses the integration test framework to spin up a local FURY network and
 // perform transactions on it.
 // The test suite focus on testing how the MsgEthereumTx message is handled under the
 // different params configuration of the module while testing the different Tx types

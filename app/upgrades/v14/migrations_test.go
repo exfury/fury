@@ -4,9 +4,9 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	v14 "github.com/evmos/evmos/v15/app/upgrades/v14"
-	"github.com/evmos/evmos/v15/testutil"
-	testutiltx "github.com/evmos/evmos/v15/testutil/tx"
+	v14 "github.com/exfury/fury/v15/app/upgrades/v14"
+	"github.com/exfury/fury/v15/testutil"
+	testutiltx "github.com/exfury/fury/v15/testutil/tx"
 )
 
 // TestUpdateMigrateNativeMultisigs is the main test for the migration of the strategic reserves and the premint wallet.
@@ -29,7 +29,7 @@ func (s *UpgradesTestSuite) TestUpdateMigrateNativeMultisigs() {
 
 	var (
 		oldPremintCoin     = sdk.Coin{Denom: s.bondDenom, Amount: amountPremint}
-		stratRes1EvmosCoin = sdk.Coin{Denom: s.bondDenom, Amount: amount1}
+		stratRes1FuryCoin = sdk.Coin{Denom: s.bondDenom, Amount: amount1}
 		stratRes1IBCCoin   = sdk.Coin{Denom: "someIBCdenom", Amount: amount1IBC}
 		stratRes2Coin      = sdk.Coin{Denom: s.bondDenom, Amount: amount2}
 		stratRes3Coin      = sdk.Coin{Denom: s.bondDenom, Amount: amount3}
@@ -48,7 +48,7 @@ func (s *UpgradesTestSuite) TestUpdateMigrateNativeMultisigs() {
 		s.T().Logf("Old Strategic Reserve %d: %q\n", idx+1, oldStrategicReserves[idx].Addr.String())
 	}
 	// assign pre-balances
-	oldStrategicReserves[0].BalancePre = sdk.NewCoins(stratRes1EvmosCoin, stratRes1IBCCoin)
+	oldStrategicReserves[0].BalancePre = sdk.NewCoins(stratRes1FuryCoin, stratRes1IBCCoin)
 	oldStrategicReserves[1].BalancePre = sdk.NewCoins(stratRes2Coin)
 	oldStrategicReserves[2].BalancePre = sdk.NewCoins(stratRes3Coin)
 	oldStrategicReserves[3].BalancePre = sdk.NewCoins(stratRes4Coin)
@@ -59,7 +59,7 @@ func (s *UpgradesTestSuite) TestUpdateMigrateNativeMultisigs() {
 	s.T().Logf("New Strategic Reserve: %q\n", newStrategicReserve.Addr.String())
 	newStrategicReserve.BalancePost = sdk.NewCoins(
 		stratRes1IBCCoin,
-		stratRes1EvmosCoin.Add(stratRes2Coin).Add(stratRes3Coin).Add(stratRes4Coin).Add(stratRes5Coin),
+		stratRes1FuryCoin.Add(stratRes2Coin).Add(stratRes3Coin).Add(stratRes4Coin).Add(stratRes5Coin),
 	)
 	// NOTE: after the migration the delegation that returns zero tokens should be removed / not newly delegated to
 	newStrategicReserve.DelegationsPost = stakingtypes.Delegations{

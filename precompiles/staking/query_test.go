@@ -9,10 +9,10 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/evmos/evmos/v15/precompiles/authorization"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/staking"
-	testutiltx "github.com/evmos/evmos/v15/testutil/tx"
+	"github.com/exfury/fury/v15/precompiles/authorization"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/staking"
+	testutiltx "github.com/exfury/fury/v15/testutil/tx"
 )
 
 func (s *PrecompileTestSuite) TestDelegation() {

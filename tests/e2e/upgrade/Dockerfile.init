@@ -1,8 +1,8 @@
-# argument to provide specific version of evmos node
+# argument to provide specific version of fury node
 ARG INITIAL_VERSION
-FROM tharsishq/evmos:$INITIAL_VERSION
+FROM tharsishq/fury:$INITIAL_VERSION
 
-WORKDIR /go/src/github.com/evmos/evmos
+WORKDIR /go/src/github.com/exfury/fury
 
 COPY ./init-node.sh .
 

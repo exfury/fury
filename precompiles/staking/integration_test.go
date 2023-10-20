@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package staking_test
 
 import (
@@ -17,16 +17,16 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
-	compiledcontracts "github.com/evmos/evmos/v15/contracts"
-	"github.com/evmos/evmos/v15/precompiles/authorization"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/distribution"
-	"github.com/evmos/evmos/v15/precompiles/staking"
-	"github.com/evmos/evmos/v15/precompiles/staking/testdata"
-	"github.com/evmos/evmos/v15/precompiles/testutil"
-	"github.com/evmos/evmos/v15/precompiles/testutil/contracts"
-	evmosutil "github.com/evmos/evmos/v15/testutil"
-	testutiltx "github.com/evmos/evmos/v15/testutil/tx"
+	compiledcontracts "github.com/exfury/fury/v15/contracts"
+	"github.com/exfury/fury/v15/precompiles/authorization"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/distribution"
+	"github.com/exfury/fury/v15/precompiles/staking"
+	"github.com/exfury/fury/v15/precompiles/staking/testdata"
+	"github.com/exfury/fury/v15/precompiles/testutil"
+	"github.com/exfury/fury/v15/precompiles/testutil/contracts"
+	furyutil "github.com/exfury/fury/v15/testutil"
+	testutiltx "github.com/exfury/fury/v15/testutil/tx"
 )
 
 // General variables used for integration tests
@@ -156,7 +156,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 			s.ExpectAuthorization(staking.DelegateAuthz, s.precompile.Address(), s.address, nil)
 		})
 
-		It("should approve the undelegate method with 1 evmos", func() {
+		It("should approve the undelegate method with 1 fury", func() {
 			s.SetupApproval(
 				s.privKey, s.precompile.Address(), big.NewInt(1e18), []string{staking.UndelegateMsg},
 			)
@@ -164,7 +164,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 			s.ExpectAuthorization(staking.UndelegateAuthz, s.precompile.Address(), s.address, &oneE18Coin)
 		})
 
-		It("should approve the redelegate method with 2 evmos", func() {
+		It("should approve the redelegate method with 2 fury", func() {
 			s.SetupApproval(
 				s.privKey, s.precompile.Address(), big.NewInt(2e18), []string{staking.RedelegateMsg},
 			)
@@ -172,7 +172,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 			s.ExpectAuthorization(staking.RedelegateAuthz, s.precompile.Address(), s.address, &twoE18Coin)
 		})
 
-		It("should approve the cancel unbonding delegation method with 1 evmos", func() {
+		It("should approve the cancel unbonding delegation method with 1 fury", func() {
 			s.SetupApproval(
 				s.privKey, s.precompile.Address(), big.NewInt(1e18), []string{staking.CancelUnbondingDelegationMsg},
 			)
@@ -207,7 +207,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 		//	Expect(err).To(BeNil(), "error while calling the contract and checking logs")
 		// })
 
-		It("Should increase the allowance of the delegate method with 1 evmos", func() {
+		It("Should increase the allowance of the delegate method with 1 fury", func() {
 			increaseArgs := defaultCallArgs.
 				WithMethodName(authorization.IncreaseAllowanceMethod).
 				WithArgs(
@@ -269,7 +269,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 		//	Expect(err).To(BeNil(), "error while calling the contract and checking logs")
 		// })
 
-		It("Should decrease the allowance of the delegate method with 1 evmos", func() {
+		It("Should decrease the allowance of the delegate method with 1 fury", func() {
 			decreaseArgs := defaultDecreaseArgs.WithArgs(
 				s.precompile.Address(), big.NewInt(1e18), []string{staking.DelegateMsg},
 			)
@@ -376,7 +376,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 
 			// set up an approval with a different key than the one used to sign the transaction.
 			differentAddr, differentPriv := testutiltx.NewAddrKey()
-			err := evmosutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, differentAddr.Bytes(), 1e18)
+			err := furyutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, differentAddr.Bytes(), 1e18)
 			Expect(err).To(BeNil(), "error while funding account")
 
 			s.NextBlock()
@@ -1190,7 +1190,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 
 		It("should return an empty array if no redelegation is found for the given source validator", func() {
 			// NOTE: the way that the functionality is implemented in the Cosmos SDK, the following combinations are
-			// possible (see https://github.com/evmos/cosmos-sdk/blob/e773cf768844c87245d0c737cda1893a2819dd89/x/staking/keeper/querier.go#L361-L373):
+			// possible (see https://github.com/fury/cosmos-sdk/blob/e773cf768844c87245d0c737cda1893a2819dd89/x/staking/keeper/querier.go#L361-L373):
 			//
 			// - delegator is NOT empty, source validator is empty, destination validator is empty
 			//   --> filtering for all redelegations of the given delegator
@@ -1617,7 +1617,7 @@ var _ = Describe("Calling staking precompile via Solidity", func() {
 
 			It("should not delegate when sending from a different address", func() {
 				newAddr, newPriv := testutiltx.NewAccAddressAndKey()
-				err := evmosutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
+				err := furyutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
 				Expect(err).To(BeNil(), "error while funding account: %v", err)
 
 				s.NextBlock()
@@ -1745,7 +1745,7 @@ var _ = Describe("Calling staking precompile via Solidity", func() {
 
 			It("should not undelegate when called from a different address", func() {
 				newAddr, newPriv := testutiltx.NewAccAddressAndKey()
-				err := evmosutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
+				err := furyutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
 				Expect(err).To(BeNil(), "error while funding account: %v", err)
 
 				s.NextBlock()
@@ -1849,7 +1849,7 @@ var _ = Describe("Calling staking precompile via Solidity", func() {
 
 			It("should not redelegate when calling from a different address", func() {
 				newAddr, newPriv := testutiltx.NewAccAddressAndKey()
-				err := evmosutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
+				err := furyutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
 				Expect(err).To(BeNil(), "error while funding account: %v", err)
 
 				s.NextBlock()
@@ -1994,7 +1994,7 @@ var _ = Describe("Calling staking precompile via Solidity", func() {
 
 			It("should not cancel unbonding delegations when calling from a different address", func() {
 				newAddr, newPriv := testutiltx.NewAccAddressAndKey()
-				err := evmosutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
+				err := furyutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, newAddr, 1e18)
 				Expect(err).To(BeNil(), "error while funding account: %v", err)
 
 				s.NextBlock()
@@ -2231,7 +2231,7 @@ var _ = Describe("Calling staking precompile via Solidity", func() {
 			err = s.precompile.UnpackIntoInterface(&delOut, staking.DelegationMethod, ethRes.Ret)
 			Expect(err).To(BeNil(), "error while unpacking the delegation output: %v", err)
 			Expect(delOut.Balance.Amount.Int64()).To(Equal(int64(0)), "expected a different delegation balance")
-			Expect(delOut.Balance.Denom).To(Equal("aevmos"), "expected a different delegation balance")
+			Expect(delOut.Balance.Denom).To(Equal("afury"), "expected a different delegation balance")
 		})
 
 		It("which exists should return the delegation", func() {
@@ -2246,7 +2246,7 @@ var _ = Describe("Calling staking precompile via Solidity", func() {
 			err = s.precompile.UnpackIntoInterface(&delOut, staking.DelegationMethod, ethRes.Ret)
 			Expect(err).To(BeNil(), "error while unpacking the delegation output: %v", err)
 			Expect(delOut.Balance).To(Equal(
-				cmn.Coin{Denom: "aevmos", Amount: big.NewInt(1e18)}),
+				cmn.Coin{Denom: "afury", Amount: big.NewInt(1e18)}),
 				"expected a different delegation balance",
 			)
 		})
@@ -2717,11 +2717,11 @@ var _ = Describe("Batching cosmos and eth interactions", func() {
 		s.NextBlock()
 
 		// Deploy StakingCaller contract
-		contractAddr, err = evmosutil.DeployContract(s.ctx, s.app, s.privKey, s.queryClientEVM, testdata.StakingCallerContract)
+		contractAddr, err = furyutil.DeployContract(s.ctx, s.app, s.privKey, s.queryClientEVM, testdata.StakingCallerContract)
 		Expect(err).To(BeNil(), "error while deploying the StakingCaller contract")
 
 		// Deploy ERC20 contract
-		erc20ContractAddr, err = evmosutil.DeployContract(s.ctx, s.app, s.privKey, s.queryClientEVM, erc20Contract,
+		erc20ContractAddr, err = furyutil.DeployContract(s.ctx, s.app, s.privKey, s.queryClientEVM, erc20Contract,
 			erc20Name, erc20Token, erc20Decimals,
 		)
 		Expect(err).To(BeNil(), "error while deploying the ERC20 contract")

@@ -12,12 +12,12 @@ import (
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	"github.com/evmos/evmos/v15/testutil"
-	"github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/utils"
-	"github.com/evmos/evmos/v15/x/claims/types"
-	inflationtypes "github.com/evmos/evmos/v15/x/inflation/types"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/testutil"
+	"github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/utils"
+	"github.com/exfury/fury/v15/x/claims/types"
+	inflationtypes "github.com/exfury/fury/v15/x/inflation/types"
 )
 
 var _ = Describe("Claiming", Ordered, func() {
@@ -93,7 +93,7 @@ var _ = Describe("Claiming", Ordered, func() {
 			s.app.AccountKeeper.SetAccount(s.ctx, acc)
 			claimsRecords = append(claimsRecords, claimsRecord)
 
-			balance := s.app.BankKeeper.GetBalance(s.ctx, addr, utils.BaseDenom) // claimsDenom == evmDenom == 'aevmos'
+			balance := s.app.BankKeeper.GetBalance(s.ctx, addr, utils.BaseDenom) // claimsDenom == evmDenom == 'afury'
 			Expect(balance.Amount).To(Equal(initClaimsAmount.Add(initBalanceAmount)))
 		}
 

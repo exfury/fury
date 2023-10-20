@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package types
 
@@ -8,7 +8,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
-	evmostypes "github.com/evmos/evmos/v15/types"
+	furytypes "github.com/exfury/fury/v15/types"
 )
 
 // NewIncentive returns an instance of Incentive
@@ -27,7 +27,7 @@ func NewIncentive(
 
 // Validate performs a stateless validation of a Incentive
 func (i Incentive) Validate() error {
-	if err := evmostypes.ValidateAddress(i.Contract); err != nil {
+	if err := furytypes.ValidateAddress(i.Contract); err != nil {
 		return err
 	}
 

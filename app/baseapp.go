@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package app
 
@@ -9,7 +9,7 @@ import (
 )
 
 // Close will be called in graceful shutdown in start cmd
-func (app *Evmos) Close() error {
+func (app *Fury) Close() error {
 	err := app.BaseApp.Close()
 
 	if cms, ok := app.CommitMultiStore().(io.Closer); ok {

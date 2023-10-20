@@ -1,4 +1,4 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
+// Copyright Tharsis Labs Ltd.(Fury)
 // SPDX-License-Identifier:LGPL-3.0-only
 
 package types
@@ -26,10 +26,10 @@ var (
 
 const (
 	// Amino names
-	cancelRevenueName   = "evmos/MsgCancelRevenue"
-	registerRevenueName = "evmos/MsgRegisterRevenue"
-	updateRevenueName   = "evmos/MsgUpdateRevenue"
-	updateParamsName    = "evmos/MsgUpdateParams"
+	cancelRevenueName   = "fury/MsgCancelRevenue"
+	registerRevenueName = "fury/MsgRegisterRevenue"
+	updateRevenueName   = "fury/MsgUpdateRevenue"
+	updateParamsName    = "fury/MsgUpdateParams"
 )
 
 // NOTE: This is required for the GetSignBytes function

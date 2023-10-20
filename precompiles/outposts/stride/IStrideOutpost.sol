@@ -11,7 +11,7 @@ IStrideOutpost constant STRIDE_OUTPOST_CONTRACT = IStrideOutpost(
     STRIDE_OUTPOST_ADDRESS
 );
 
-/// @author Evmos Team
+/// @author Fury Team
 /// @title StrideOutpost Precompiled Contract
 /// @dev The interface through which solidity contracts will interact with Stride Outpost that uses ICS20 under the hood
 /// @custom:address 0x0000000000000000000000000000000000000900
@@ -56,7 +56,7 @@ interface IStrideOutpost {
         uint256 amount
     );
 
-    /// @dev Liquid stake a native Coin on the Stride chain and return it to the Evmos chain.
+    /// @dev Liquid stake a native Coin on the Stride chain and return it to the Fury chain.
     /// @param sender The sender of the liquid stake transaction.
     /// @param token The hex ERC20 address of the token pair.
     /// @param amount The amount that will be liquid staked.
@@ -70,7 +70,7 @@ interface IStrideOutpost {
         string calldata receiver
     ) external returns (uint64 nextSequence, bool success);
 
-    /// @dev This method unstakes the LSD Coin (ex. stEvmos, stAtom) and redeems
+    /// @dev This method unstakes the LSD Coin (ex. stFury, stAtom) and redeems
     /// the native Coin by sending an ICS20 Transfer to the specified chain.
     /// @param sender The sender of the redeem transaction.
     /// @param token The hex address of the token to be redeemed.

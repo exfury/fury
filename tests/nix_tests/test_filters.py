@@ -5,7 +5,7 @@ from eth_abi import abi
 from hexbytes import HexBytes
 from web3 import Web3
 
-from .network import setup_custom_evmos, setup_evmos
+from .network import setup_custom_fury, setup_fury
 from .utils import (
     ADDRS,
     CONTRACTS,
@@ -17,35 +17,35 @@ from .utils import (
 
 
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
+def custom_fury(tmp_path_factory):
     path = tmp_path_factory.mktemp("filters")
-    yield from setup_evmos(path, 26200)
+    yield from setup_fury(path, 26200)
 
 
 @pytest.fixture(scope="module")
-def evmos_indexer(tmp_path_factory):
+def fury_indexer(tmp_path_factory):
     path = tmp_path_factory.mktemp("indexer")
-    yield from setup_custom_evmos(
+    yield from setup_custom_fury(
         path, 26660, Path(__file__).parent / "configs/enable-indexer.jsonnet"
     )
 
 
-@pytest.fixture(scope="module", params=["evmos", "geth", "evmos-ws", "enable-indexer"])
-def cluster(request, custom_evmos, evmos_indexer, geth):
+@pytest.fixture(scope="module", params=["fury", "geth", "fury-ws", "enable-indexer"])
+def cluster(request, custom_fury, fury_indexer, geth):
     """
-    run on both evmos and geth
+    run on both fury and geth
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
+    if provider == "fury":
+        yield custom_fury
     elif provider == "geth":
         yield geth
-    elif provider == "evmos-ws":
-        evmos_ws = custom_evmos.copy()
-        evmos_ws.use_websocket()
-        yield evmos_ws
+    elif provider == "fury-ws":
+        fury_ws = custom_fury.copy()
+        fury_ws.use_websocket()
+        yield fury_ws
     elif provider == "enable-indexer":
-        yield evmos_indexer
+        yield fury_indexer
     else:
         raise NotImplementedError
 

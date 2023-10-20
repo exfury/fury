@@ -12,12 +12,12 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	ibctypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
-	"github.com/evmos/evmos/v15/app"
-	v11 "github.com/evmos/evmos/v15/app/upgrades/v11"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	"github.com/evmos/evmos/v15/testutil"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
+	"github.com/exfury/fury/v15/app"
+	v11 "github.com/exfury/fury/v15/app/upgrades/v11"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/testutil"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/cometbft/cometbft/crypto/tmhash"
@@ -26,14 +26,14 @@ import (
 	"github.com/cometbft/cometbft/version"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/utils"
 )
 
 type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx     sdk.Context
-	app     *app.Evmos
+	app     *app.Fury
 	consKey cryptotypes.PubKey
 }
 
@@ -153,7 +153,7 @@ func (suite *UpgradeTestSuite) TestMigrateEscrowAcc() {
 func (suite *UpgradeTestSuite) TestDistributeRewards() {
 	// define constants
 	mainnetChainID := utils.MainnetChainID + "-4"
-	communityPool := sdk.MustAccAddressFromBech32("evmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8974jnh")
+	communityPool := sdk.MustAccAddressFromBech32("fury1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8974jnh")
 	fundingAcc := sdk.MustAccAddressFromBech32(v11.FundingAccount)
 
 	// checks on reward amounts
@@ -188,7 +188,7 @@ func (suite *UpgradeTestSuite) TestDistributeRewards() {
 	suite.Require().Equal(expRewards, actualRewards)
 
 	expCommPoolBalance := balance.Sub(expRewards)
-	noRewardAddr := sdk.MustAccAddressFromBech32("evmos1009egsf8sk3puq3aynt8eymmcqnneezkkvceav")
+	noRewardAddr := sdk.MustAccAddressFromBech32("fury1009egsf8sk3puq3aynt8eymmcqnneezkkvceav")
 
 	testCases := []struct {
 		name               string

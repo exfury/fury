@@ -14,17 +14,17 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	evm "github.com/evmos/evmos/v15/x/evm/types"
+	evm "github.com/exfury/fury/v15/x/evm/types"
 
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/x/incentives/types"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/x/incentives/types"
 )
 
 type KeeperTestSuite struct {
 	suite.Suite
 
 	ctx              sdk.Context
-	app              *app.Evmos
+	app              *app.Fury
 	queryClientEvm   evm.QueryClient
 	queryClient      types.QueryClient
 	address          common.Address

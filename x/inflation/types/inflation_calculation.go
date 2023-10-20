@@ -1,12 +1,12 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	evmostypes "github.com/evmos/evmos/v15/types"
+	furytypes "github.com/exfury/fury/v15/types"
 )
 
 // CalculateEpochProvisions returns mint provision per epoch
@@ -42,9 +42,9 @@ func CalculateEpochMintProvision(
 	// epochProvision = periodProvision / epochsPerPeriod
 	epochProvision := periodProvision.Quo(sdk.NewDec(epochsPerPeriod))
 
-	// Multiply epochMintProvision with power reduction (10^18 for evmos) as the
-	// calculation is based on `evmos` and the issued tokens need to be given in
-	// `aevmos`
-	epochProvision = epochProvision.Mul(sdk.NewDecFromInt(evmostypes.PowerReduction))
+	// Multiply epochMintProvision with power reduction (10^18 for fury) as the
+	// calculation is based on `fury` and the issued tokens need to be given in
+	// `afury`
+	epochProvision = epochProvision.Mul(sdk.NewDecFromInt(furytypes.PowerReduction))
 	return epochProvision
 }

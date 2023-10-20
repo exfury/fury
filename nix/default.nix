@@ -56,7 +56,7 @@ import sources.nixpkgs {
       import ./scripts.nix {
         inherit pkgs;
         config = {
-          evmos-config = ../scripts/evmos-devnet.yaml;
+          fury-config = ../scripts/fury-devnet.yaml;
           geth-genesis = ../scripts/geth-genesis.json;
           dotenv = builtins.path { name = "dotenv"; path = ../scripts/.env; };
         };

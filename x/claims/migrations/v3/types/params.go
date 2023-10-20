@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package types
 
@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/evmos/evmos/v15/utils"
-	"github.com/evmos/evmos/v15/x/claims/types"
+	"github.com/exfury/fury/v15/utils"
+	"github.com/exfury/fury/v15/x/claims/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -21,7 +21,7 @@ import (
 var _ types.LegacyParams = &V3Params{}
 
 var (
-	// DefaultClaimsDenom is aevmos
+	// DefaultClaimsDenom is afury
 	DefaultClaimsDenom = utils.BaseDenom
 	// DefaultDurationUntilDecay is 1 month = 30.4375 days
 	DefaultDurationUntilDecay = 2629800 * time.Second

@@ -1,4 +1,4 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
+// Copyright Tharsis Labs Ltd.(Fury)
 // SPDX-License-Identifier:LGPL-3.0-only
 
 package revenue
@@ -7,8 +7,8 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/evmos/evmos/v15/x/revenue/v1/keeper"
-	"github.com/evmos/evmos/v15/x/revenue/v1/types"
+	"github.com/exfury/fury/v15/x/revenue/v1/keeper"
+	"github.com/exfury/fury/v15/x/revenue/v1/types"
 )
 
 // InitGenesis import module genesis

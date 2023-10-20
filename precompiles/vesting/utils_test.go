@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package vesting_test
 
 import (
@@ -19,30 +19,30 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	evmosapp "github.com/evmos/evmos/v15/app"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/testutil/contracts"
-	"github.com/evmos/evmos/v15/precompiles/vesting"
-	"github.com/evmos/evmos/v15/precompiles/vesting/testdata"
-	evmosutil "github.com/evmos/evmos/v15/testutil"
-	testutiltx "github.com/evmos/evmos/v15/testutil/tx"
-	evmostypes "github.com/evmos/evmos/v15/types"
-	"github.com/evmos/evmos/v15/utils"
-	"github.com/evmos/evmos/v15/x/evm/statedb"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
-	inflationtypes "github.com/evmos/evmos/v15/x/inflation/types"
-	vestingtypes "github.com/evmos/evmos/v15/x/vesting/types"
+	furyapp "github.com/exfury/fury/v15/app"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/testutil/contracts"
+	"github.com/exfury/fury/v15/precompiles/vesting"
+	"github.com/exfury/fury/v15/precompiles/vesting/testdata"
+	furyutil "github.com/exfury/fury/v15/testutil"
+	testutiltx "github.com/exfury/fury/v15/testutil/tx"
+	furytypes "github.com/exfury/fury/v15/types"
+	"github.com/exfury/fury/v15/utils"
+	"github.com/exfury/fury/v15/x/evm/statedb"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
+	inflationtypes "github.com/exfury/fury/v15/x/inflation/types"
+	vestingtypes "github.com/exfury/fury/v15/x/vesting/types"
 
 	. "github.com/onsi/gomega"
 )
 
-// SetupWithGenesisValSet initializes a new EvmosApp with a validator set and genesis accounts
+// SetupWithGenesisValSet initializes a new FuryApp with a validator set and genesis accounts
 // that also act as delegators. For simplicity, each validator is bonded with a delegation
 // of one consensus engine unit (10^6) in the default token of the simapp from first genesis
 // account. A Nop logger is set in SimApp.
 func (s *PrecompileTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSet, genAccs []authtypes.GenesisAccount, balances ...banktypes.Balance) {
-	appI, genesisState := evmosapp.SetupTestingApp(cmn.DefaultChainID)()
-	app, ok := appI.(*evmosapp.Evmos)
+	appI, genesisState := furyapp.SetupTestingApp(cmn.DefaultChainID)()
+	app, ok := appI.(*furyapp.Fury)
 	s.Require().True(ok)
 
 	// set genesis accounts
@@ -52,7 +52,7 @@ func (s *PrecompileTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSe
 	validators := make([]stakingtypes.Validator, 0, len(valSet.Validators))
 	delegations := make([]stakingtypes.Delegation, 0, len(valSet.Validators))
 
-	bondAmt := sdk.TokensFromConsensusPower(1, evmostypes.PowerReduction)
+	bondAmt := sdk.TokensFromConsensusPower(1, furytypes.PowerReduction)
 
 	for _, val := range valSet.Validators {
 		pk, err := cryptocodec.FromTmPubKeyInterface(val.PubKey)
@@ -79,7 +79,7 @@ func (s *PrecompileTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSe
 
 	// set validators and delegations
 	stakingParams := stakingtypes.DefaultParams()
-	// set bond demon to be aevmos
+	// set bond demon to be afury
 	stakingParams.BondDenom = utils.BaseDenom
 	stakingGenesis := stakingtypes.NewGenesisState(stakingParams, validators, delegations)
 	genesisState[stakingtypes.ModuleName] = app.AppCodec().MustMarshalJSON(stakingGenesis)
@@ -107,7 +107,7 @@ func (s *PrecompileTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSe
 	stateBytes, err := json.MarshalIndent(genesisState, "", " ")
 	s.Require().NoError(err)
 
-	header := evmosutil.NewHeader(
+	header := furyutil.NewHeader(
 		2,
 		time.Now().UTC(),
 		cmn.DefaultChainID,
@@ -121,7 +121,7 @@ func (s *PrecompileTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSe
 		abci.RequestInitChain{
 			ChainId:         cmn.DefaultChainID,
 			Validators:      []abci.ValidatorUpdate{},
-			ConsensusParams: evmosapp.DefaultConsensusParams,
+			ConsensusParams: furyapp.DefaultConsensusParams,
 			AppStateBytes:   stateBytes,
 		},
 	)
@@ -160,12 +160,12 @@ func (s *PrecompileTestSuite) DoSetupTest() {
 
 	baseAcc := authtypes.NewBaseAccount(priv.PubKey().Address().Bytes(), priv.PubKey(), 0, 0)
 
-	acc := &evmostypes.EthAccount{
+	acc := &furytypes.EthAccount{
 		BaseAccount: baseAcc,
 		CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 	}
 
-	amount := sdk.TokensFromConsensusPower(5, evmostypes.PowerReduction)
+	amount := sdk.TokensFromConsensusPower(5, furytypes.PowerReduction)
 
 	balance := banktypes.Balance{
 		Address: acc.GetAddress().String(),
@@ -250,7 +250,7 @@ func (s *PrecompileTestSuite) CreateTestClawbackVestingAccount(funder, vestingAd
 	msgArgs := []interface{}{funder, vestingAddr, false}
 	//nolint
 	msg, _, _, err := vesting.NewMsgCreateClawbackVestingAccount(msgArgs)
-	err = evmosutil.FundAccount(s.ctx, s.app.BankKeeper, vestingAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, sdk.NewInt(100))))
+	err = furyutil.FundAccount(s.ctx, s.app.BankKeeper, vestingAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, sdk.NewInt(100))))
 	s.Require().NoError(err)
 	_, err = s.app.VestingKeeper.CreateClawbackVestingAccount(s.ctx, msg)
 	s.Require().NoError(err)
@@ -258,7 +258,7 @@ func (s *PrecompileTestSuite) CreateTestClawbackVestingAccount(funder, vestingAd
 
 // DeployContract deploys a contract that calls the staking precompile's methods for testing purposes.
 func (s *PrecompileTestSuite) DeployContract(contract evmtypes.CompiledContract) (addr common.Address, err error) {
-	addr, err = evmosutil.DeployContract(
+	addr, err = furyutil.DeployContract(
 		s.ctx,
 		s.app,
 		s.privKey,
@@ -308,6 +308,6 @@ func (s *PrecompileTestSuite) GetVestingAccount(addr common.Address) *vestingtyp
 // NextBlock commits the current block and sets up the next block.
 func (s *PrecompileTestSuite) NextBlock() {
 	var err error
-	s.ctx, err = evmosutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second, nil)
+	s.ctx, err = furyutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second, nil)
 	Expect(err).To(BeNil(), "failed to commit block")
 }

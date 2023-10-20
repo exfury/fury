@@ -1,13 +1,13 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package network
 
 import (
 	"encoding/json"
 	"math"
 
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/types"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/types"
 
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 
@@ -17,10 +17,10 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
-	infltypes "github.com/evmos/evmos/v15/x/inflation/types"
-	revtypes "github.com/evmos/evmos/v15/x/revenue/v1/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
+	infltypes "github.com/exfury/fury/v15/x/inflation/types"
+	revtypes "github.com/exfury/fury/v15/x/revenue/v1/types"
 )
 
 // Network is the interface that wraps the methods to interact with integration test network.
@@ -59,7 +59,7 @@ var _ Network = (*IntegrationNetwork)(nil)
 type IntegrationNetwork struct {
 	cfg        Config
 	ctx        sdktypes.Context
-	app        *app.Evmos
+	app        *app.Fury
 	validators []stakingtypes.Validator
 }
 
@@ -120,29 +120,29 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 
 	delegations := createDelegations(valSet.Validators, genAccounts[0].GetAddress())
 
-	// Create a new EvmosApp with the following params
-	evmosApp := createEvmosApp(n.cfg.chainID)
+	// Create a new FuryApp with the following params
+	furyApp := createFuryApp(n.cfg.chainID)
 
 	// Configure Genesis state
 	genesisState := app.NewDefaultGenesisState()
 
-	genesisState = setAuthGenesisState(evmosApp, genesisState, genAccounts)
+	genesisState = setAuthGenesisState(furyApp, genesisState, genAccounts)
 
 	stakingParams := StakingCustomGenesisState{
 		denom:       n.cfg.denom,
 		validators:  validators,
 		delegations: delegations,
 	}
-	genesisState = setStakingGenesisState(evmosApp, genesisState, stakingParams)
+	genesisState = setStakingGenesisState(furyApp, genesisState, stakingParams)
 
-	genesisState = setInflationGenesisState(evmosApp, genesisState)
+	genesisState = setInflationGenesisState(furyApp, genesisState)
 
 	totalSupply := calculateTotalSupply(fundedAccountBalances)
 	bankParams := BankCustomGenesisState{
 		totalSupply: totalSupply,
 		balances:    fundedAccountBalances,
 	}
-	genesisState = setBankGenesisState(evmosApp, genesisState, bankParams)
+	genesisState = setBankGenesisState(furyApp, genesisState, bankParams)
 
 	// Init chain
 	stateBytes, err := json.MarshalIndent(genesisState, "", " ")
@@ -150,7 +150,7 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 		return err
 	}
 
-	evmosApp.InitChain(
+	furyApp.InitChain(
 		abcitypes.RequestInitChain{
 			ChainId:         n.cfg.chainID,
 			Validators:      []abcitypes.ValidatorUpdate{},
@@ -159,22 +159,22 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 		},
 	)
 	// Commit genesis changes
-	evmosApp.Commit()
+	furyApp.Commit()
 
 	header := tmproto.Header{
 		ChainID:            n.cfg.chainID,
-		Height:             evmosApp.LastBlockHeight() + 1,
-		AppHash:            evmosApp.LastCommitID().Hash,
+		Height:             furyApp.LastBlockHeight() + 1,
+		AppHash:            furyApp.LastCommitID().Hash,
 		ValidatorsHash:     valSet.Hash(),
 		NextValidatorsHash: valSet.Hash(),
 		ProposerAddress:    valSet.Proposer.Address,
 	}
-	evmosApp.BeginBlock(abcitypes.RequestBeginBlock{Header: header})
+	furyApp.BeginBlock(abcitypes.RequestBeginBlock{Header: header})
 
 	// Set networks global parameters
-	n.app = evmosApp
+	n.app = furyApp
 	// TODO - this might not be the best way to initilize the context
-	n.ctx = evmosApp.BaseApp.NewContext(false, header)
+	n.ctx = furyApp.BaseApp.NewContext(false, header)
 	n.validators = validators
 	return nil
 }

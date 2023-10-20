@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package contracts
 
@@ -10,7 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
 )
 
 // CallArgs is a struct to define all relevant data to call a smart contract.
@@ -85,7 +85,7 @@ func (c CallArgs) WithArgs(args ...interface{}) CallArgs {
 }
 
 // WithAmount populates the CallArgs struct's Amount field with the given amount.
-// This is the amount of Evmos that will be sent with the contract call.
+// This is the amount of Fury that will be sent with the contract call.
 func (c CallArgs) WithAmount(amount *big.Int) CallArgs {
 	c.Amount = amount
 	return c

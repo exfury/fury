@@ -1,12 +1,12 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package vesting
 
 import (
 	"fmt"
 	"time"
 
-	"github.com/evmos/evmos/v15/precompiles/authorization"
+	"github.com/exfury/fury/v15/precompiles/authorization"
 
 	"github.com/ethereum/go-ethereum/common"
 
@@ -14,8 +14,8 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 
 	cosmosvestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	vestingtypes "github.com/evmos/evmos/v15/x/vesting/types"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	vestingtypes "github.com/exfury/fury/v15/x/vesting/types"
 )
 
 // LockupPeriods is a struct used to parse the LockupPeriods parameter

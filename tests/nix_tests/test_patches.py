@@ -15,12 +15,12 @@ from .utils import (
 )
 
 
-def test_send_funds_to_distr_mod(evmos):
+def test_send_funds_to_distr_mod(fury):
     """
     This tests the transfer of funds to the distribution module account,
     which should be forbidden, since this is a blocked address.
     """
-    cli = evmos.cosmos_cli()
+    cli = fury.cosmos_cli()
     sender = eth_to_bech32(ADDRS["signer1"])
     amt = 1000
 
@@ -64,12 +64,12 @@ def test_send_funds_to_distr_mod(evmos):
     assert old_src_balance - fees == new_src_balance
 
 
-def test_authz_nested_msg(evmos):
+def test_authz_nested_msg(fury):
     """
     test sending MsgEthereumTx nested in a MsgExec should be forbidden
     """
-    w3: Web3 = evmos.w3
-    cli = evmos.cosmos_cli()
+    w3: Web3 = fury.w3
+    cli = fury.cosmos_cli()
 
     sender_acc = ACCOUNTS["signer1"]
     sender_bech32_addr = eth_to_bech32(sender_acc.address)
@@ -104,15 +104,15 @@ def test_authz_nested_msg(evmos):
         )
 
 
-def test_create_invalid_vesting_acc(evmos):
+def test_create_invalid_vesting_acc(fury):
     """
     test create vesting account with account address != signer address
     """
-    cli = evmos.cosmos_cli()
+    cli = fury.cosmos_cli()
     # create the vesting account
     tx = cli.create_vesting_acc(
         eth_to_bech32(ADDRS["validator"]),
-        "evmos1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqzqpgshrm7",
+        "fury1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqzqpgshrm7",
     )
     try:
         tx = cli.sign_tx_json(tx, eth_to_bech32(ADDRS["signer1"]), max_priority_price=0)
@@ -121,7 +121,7 @@ def test_create_invalid_vesting_acc(evmos):
         assert "tx intended signer does not match the given signer" in error.args[0]
 
 
-def test_vesting_acc_schedule(evmos):
+def test_vesting_acc_schedule(fury):
     """
     test vesting account with negative/zero amounts should be forbidden
     """
@@ -130,13 +130,13 @@ def test_vesting_acc_schedule(evmos):
             "name": "fail - vesting account with negative amount",
             "funder": eth_to_bech32(ADDRS["validator"]),
             "address": eth_to_bech32(ADDRS["signer1"]),
-            "exp_err": "invalid decimal coin expression: -10000000000aevmos",
+            "exp_err": "invalid decimal coin expression: -10000000000afury",
             "lockup": {
                 "start_time": 1625204910,
                 "periods": [
                     {
                         "length_seconds": 2419200,
-                        "coins": "10000000000aevmos",
+                        "coins": "10000000000afury",
                     }
                 ],
             },
@@ -145,15 +145,15 @@ def test_vesting_acc_schedule(evmos):
                 "periods": [
                     {
                         "length_seconds": 2419200,
-                        "coins": "10000000000aevmos",
+                        "coins": "10000000000afury",
                     },
                     {
                         "length_seconds": 2419200,
-                        "coins": "10000000000aevmos",
+                        "coins": "10000000000afury",
                     },
                     {
                         "length_seconds": 2419200,
-                        "coins": "-10000000000aevmos",
+                        "coins": "-10000000000afury",
                     },
                 ],
             },
@@ -168,7 +168,7 @@ def test_vesting_acc_schedule(evmos):
                 "periods": [
                     {
                         "length_seconds": 2419200,
-                        "coins": "0aevmos",
+                        "coins": "0afury",
                     }
                 ],
             },
@@ -177,14 +177,14 @@ def test_vesting_acc_schedule(evmos):
                 "periods": [
                     {
                         "length_seconds": 2419200,
-                        "coins": "0aevmos",
+                        "coins": "0afury",
                     },
                 ],
             },
         },
     ]
 
-    cli = evmos.cosmos_cli()
+    cli = fury.cosmos_cli()
     for tc in test_cases:
         print("\nCase: {}".format(tc["name"]))
         # create the vesting account
@@ -224,11 +224,11 @@ def test_vesting_acc_schedule(evmos):
                     assert tc["exp_err"] in error.args[0]
 
 
-def test_unvested_token_delegation(evmos):
+def test_unvested_token_delegation(fury):
     """
     test vesting account cannot delegate unvested tokens
     """
-    cli = evmos.cosmos_cli()
+    cli = fury.cosmos_cli()
     funder = eth_to_bech32(ADDRS["signer1"])
     # add a new key that will be the vesting account
     acc = cli.create_account("vesting_acc")
@@ -270,7 +270,7 @@ def test_unvested_token_delegation(evmos):
                 "periods": [
                     {
                         "length_seconds": 1675184400,
-                        "coins": "10000000000000000000aevmos",
+                        "coins": "10000000000000000000afury",
                     }
                 ],
             },
@@ -285,15 +285,15 @@ def test_unvested_token_delegation(evmos):
                     "periods": [
                         {
                             "length_seconds": 1675184400,
-                            "coins": "3000000000000000000aevmos",
+                            "coins": "3000000000000000000afury",
                         },
                         {
                             "length_seconds": 2419200,
-                            "coins": "3000000000000000000aevmos",
+                            "coins": "3000000000000000000afury",
                         },
                         {
                             "length_seconds": 2419200,
-                            "coins": "4000000000000000000aevmos",
+                            "coins": "4000000000000000000afury",
                         },
                     ],
                 },
@@ -322,7 +322,7 @@ def test_unvested_token_delegation(evmos):
     assert balances["locked"] == balances["unvested"]
 
     # try to delegate more than the allowed tokens
-    del_amt = "7000000000000000000aevmos"
+    del_amt = "7000000000000000000afury"
     validator_addr = cli.validators()[0]["operator_address"]
     tx = cli.delegate_amount(
         validator_addr,

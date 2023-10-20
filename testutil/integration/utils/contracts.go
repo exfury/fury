@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package utils
 
 import (
@@ -7,12 +7,12 @@ import (
 
 	"golang.org/x/exp/slices"
 
-	"github.com/evmos/evmos/v15/testutil/integration/factory"
+	"github.com/exfury/fury/v15/testutil/integration/factory"
 
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	evmostypes "github.com/evmos/evmos/v15/types"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	furytypes "github.com/exfury/fury/v15/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 )
 
 // CheckTxTopics checks if all expected topics are present in the transaction response
@@ -39,12 +39,12 @@ func CheckTxTopics(res abcitypes.ResponseDeliverTx, expectedTopics []string) err
 
 // IsContractAccount checks if the given account is a contract account
 func IsContractAccount(acc authtypes.AccountI) error {
-	contractETHAccount, ok := acc.(evmostypes.EthAccountI)
+	contractETHAccount, ok := acc.(furytypes.EthAccountI)
 	if !ok {
 		return fmt.Errorf("account is not an eth account")
 	}
 
-	if contractETHAccount.Type() != evmostypes.AccountTypeContract {
+	if contractETHAccount.Type() != furytypes.AccountTypeContract {
 		return fmt.Errorf("account is not a contract account")
 	}
 	return nil

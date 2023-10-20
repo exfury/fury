@@ -14,10 +14,10 @@ import (
 
 	proto "github.com/cosmos/gogoproto/proto"
 
-	"github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/encoding"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	"github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/encoding"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 
 	"github.com/stretchr/testify/require"
 )

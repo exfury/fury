@@ -1,4 +1,4 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
+// Copyright Tharsis Labs Ltd.(Fury)
 // SPDX-License-Identifier:LGPL-3.0-only
 
 package keeper
@@ -14,9 +14,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/ethereum/go-ethereum/common"
-	evmostypes "github.com/evmos/evmos/v15/types"
+	furytypes "github.com/exfury/fury/v15/types"
 
-	"github.com/evmos/evmos/v15/x/revenue/v1/types"
+	"github.com/exfury/fury/v15/x/revenue/v1/types"
 )
 
 var _ types.QueryServer = Keeper{}
@@ -72,7 +72,7 @@ func (k Keeper) Revenue(
 	}
 
 	// check if the contract is a non-zero hex address
-	if err := evmostypes.ValidateNonZeroAddress(req.ContractAddress); err != nil {
+	if err := furytypes.ValidateNonZeroAddress(req.ContractAddress); err != nil {
 		return nil, status.Errorf(
 			codes.InvalidArgument,
 			"invalid format for contract %s, should be non-zero hex ('0x...')", req.ContractAddress,
@@ -124,7 +124,7 @@ func (k Keeper) DeployerRevenues( //nolint: dupl
 	if err != nil {
 		return nil, status.Errorf(
 			codes.InvalidArgument,
-			"invalid format for deployer %s, should be bech32 ('evmos...')", req.DeployerAddress,
+			"invalid format for deployer %s, should be bech32 ('fury...')", req.DeployerAddress,
 		)
 	}
 
@@ -170,7 +170,7 @@ func (k Keeper) WithdrawerRevenues( //nolint: dupl
 	if err != nil {
 		return nil, status.Errorf(
 			codes.InvalidArgument,
-			"invalid format for withdraw addr %s, should be bech32 ('evmos...')", req.WithdrawerAddress,
+			"invalid format for withdraw addr %s, should be bech32 ('fury...')", req.WithdrawerAddress,
 		)
 	}
 

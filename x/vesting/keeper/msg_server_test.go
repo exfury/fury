@@ -10,10 +10,10 @@ import (
 	sdkvesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 
 	vestingexported "github.com/cosmos/cosmos-sdk/x/auth/vesting/exported"
-	"github.com/evmos/evmos/v15/testutil"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	evmostypes "github.com/evmos/evmos/v15/types"
-	"github.com/evmos/evmos/v15/x/vesting/types"
+	"github.com/exfury/fury/v15/testutil"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	furytypes "github.com/exfury/fury/v15/types"
+	"github.com/exfury/fury/v15/x/vesting/types"
 )
 
 var (
@@ -733,7 +733,7 @@ func (suite *KeeperTestSuite) TestConvertVestingAccount() {
 				_, ok := account.(vestingexported.VestingAccount)
 				suite.Require().False(ok)
 
-				_, ok = account.(evmostypes.EthAccountI)
+				_, ok = account.(furytypes.EthAccountI)
 				suite.Require().True(ok)
 
 			} else {

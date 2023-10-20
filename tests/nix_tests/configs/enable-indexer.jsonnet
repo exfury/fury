@@ -1,7 +1,7 @@
 local config = import 'default.jsonnet';
 
 config {
-  'evmos_9000-1'+: {
+  'fury_9000-1'+: {
     config+: {
       tx_index+: {
         indexer: 'null',

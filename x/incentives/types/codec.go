@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package types
 
@@ -23,7 +23,7 @@ var (
 
 const (
 	// Amino names
-	updateParamsName = "evmos/incentives/MsgUpdateParams"
+	updateParamsName = "fury/incentives/MsgUpdateParams"
 )
 
 // NOTE: This is required for the GetSignBytes function

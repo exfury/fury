@@ -3,8 +3,8 @@ package distribution_test
 import (
 	"testing"
 
-	"github.com/evmos/evmos/v15/precompiles/distribution"
-	"github.com/evmos/evmos/v15/x/evm/statedb"
+	"github.com/exfury/fury/v15/precompiles/distribution"
+	"github.com/exfury/fury/v15/x/evm/statedb"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -16,8 +16,8 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	evmosapp "github.com/evmos/evmos/v15/app"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	furyapp "github.com/exfury/fury/v15/app"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -27,7 +27,7 @@ type PrecompileTestSuite struct {
 	suite.Suite
 
 	ctx        sdk.Context
-	app        *evmosapp.Evmos
+	app        *furyapp.Fury
 	address    common.Address
 	validators []stakingtypes.Validator
 	valSet     *tmtypes.ValidatorSet

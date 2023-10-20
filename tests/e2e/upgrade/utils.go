@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package upgrade
 
@@ -15,17 +15,17 @@ import (
 	"github.com/hashicorp/go-version"
 )
 
-// EvmosVersions is a custom comparator for sorting semver version strings.
-type EvmosVersions []string
+// FuryVersions is a custom comparator for sorting semver version strings.
+type FuryVersions []string
 
 // Len is the number of stored versions..
-func (v EvmosVersions) Len() int { return len(v) }
+func (v FuryVersions) Len() int { return len(v) }
 
 // Swap swaps the elements with indexes i and j. It is needed to sort the slice.
-func (v EvmosVersions) Swap(i, j int) { v[i], v[j] = v[j], v[i] }
+func (v FuryVersions) Swap(i, j int) { v[i], v[j] = v[j], v[i] }
 
 // Less compares semver versions strings properly
-func (v EvmosVersions) Less(i, j int) bool {
+func (v FuryVersions) Less(i, j int) bool {
 	v1, err := version.NewVersion(v[i])
 	if err != nil {
 		log.Fatalf("couldn't interpret version as SemVer string: %s: %s", v[i], err.Error())
@@ -45,7 +45,7 @@ func CheckLegacyProposal(version string) bool {
 	}
 
 	// check if the version is lower than v10.x.x
-	cmp := EvmosVersions([]string{version, "v10.0.0"})
+	cmp := FuryVersions([]string{version, "v10.0.0"})
 	isLegacyProposal := !cmp.Less(0, 1)
 
 	return isLegacyProposal
@@ -77,12 +77,12 @@ func RetrieveUpgradesList(upgradesPath string) ([]string, error) {
 		versions[i] = v[1 : len(v)-1]
 	}
 
-	sort.Sort(EvmosVersions(versions))
+	sort.Sort(FuryVersions(versions))
 
 	return versions, nil
 }
 
-// ExportState executes the  'docker cp' command to copy container .evmosd dir
+// ExportState executes the  'docker cp' command to copy container .furyd dir
 // to the specified target dir (local)
 //
 // See https://docs.docker.com/engine/reference/commandline/cp/
@@ -91,7 +91,7 @@ func (m *Manager) ExportState(targetDir string) error {
 	cmd := exec.Command(
 		"docker",
 		"cp",
-		fmt.Sprintf("%s:/root/.evmosd", m.ContainerID()),
+		fmt.Sprintf("%s:/root/.furyd", m.ContainerID()),
 		targetDir,
 	)
 	return cmd.Run()

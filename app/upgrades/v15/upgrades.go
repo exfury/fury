@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package v15
 
 import (
@@ -8,9 +8,9 @@ import (
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	v14 "github.com/evmos/evmos/v15/app/upgrades/v14"
-	"github.com/evmos/evmos/v15/utils"
-	evmkeeper "github.com/evmos/evmos/v15/x/evm/keeper"
+	v14 "github.com/exfury/fury/v15/app/upgrades/v14"
+	"github.com/exfury/fury/v15/utils"
+	evmkeeper "github.com/exfury/fury/v15/x/evm/keeper"
 )
 
 // CreateUpgradeHandler creates an SDK upgrade handler for v15.0.0

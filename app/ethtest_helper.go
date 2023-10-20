@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package app
 
 import (
@@ -24,12 +24,12 @@ import (
 	tmtypes "github.com/cometbft/cometbft/proto/tendermint/types"
 	cmtypes "github.com/cometbft/cometbft/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/evmos/evmos/v15/encoding"
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/encoding"
+	"github.com/exfury/fury/v15/utils"
 )
 
 // EthDefaultConsensusParams defines the default Tendermint consensus params used in
-// EvmosApp testing.
+// FuryApp testing.
 var EthDefaultConsensusParams = &tmtypes.ConsensusParams{
 	Block: &tmtypes.BlockParams{
 		MaxBytes: 200000,
@@ -47,15 +47,15 @@ var EthDefaultConsensusParams = &tmtypes.ConsensusParams{
 	},
 }
 
-// EthSetup initializes a new EvmosApp. A Nop logger is set in EvmosApp.
-func EthSetup(isCheckTx bool, patchGenesis func(*Evmos, simapp.GenesisState) simapp.GenesisState) *Evmos {
+// EthSetup initializes a new FuryApp. A Nop logger is set in FuryApp.
+func EthSetup(isCheckTx bool, patchGenesis func(*Fury, simapp.GenesisState) simapp.GenesisState) *Fury {
 	return EthSetupWithDB(isCheckTx, patchGenesis, dbm.NewMemDB())
 }
 
-// EthSetupWithDB initializes a new EvmosApp. A Nop logger is set in EvmosApp.
-func EthSetupWithDB(isCheckTx bool, patchGenesis func(*Evmos, simapp.GenesisState) simapp.GenesisState, db dbm.DB) *Evmos {
+// EthSetupWithDB initializes a new FuryApp. A Nop logger is set in FuryApp.
+func EthSetupWithDB(isCheckTx bool, patchGenesis func(*Fury, simapp.GenesisState) simapp.GenesisState, db dbm.DB) *Fury {
 	chainID := utils.TestnetChainID + "-1"
-	app := NewEvmos(log.NewNopLogger(),
+	app := NewFury(log.NewNopLogger(),
 		db,
 		nil,
 		true,

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package app
 
@@ -22,16 +22,16 @@ import (
 	icahosttypes "github.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/host/types"
 	ibctransfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
-	claimstypes "github.com/evmos/evmos/v15/x/claims/types"
-	epochstypes "github.com/evmos/evmos/v15/x/epochs/types"
-	erc20types "github.com/evmos/evmos/v15/x/erc20/types"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
-	incentivestypes "github.com/evmos/evmos/v15/x/incentives/types"
-	inflationtypes "github.com/evmos/evmos/v15/x/inflation/types"
-	recoverytypes "github.com/evmos/evmos/v15/x/recovery/types"
-	revenuetypes "github.com/evmos/evmos/v15/x/revenue/v1/types"
-	vestingtypes "github.com/evmos/evmos/v15/x/vesting/types"
+	claimstypes "github.com/exfury/fury/v15/x/claims/types"
+	epochstypes "github.com/exfury/fury/v15/x/epochs/types"
+	erc20types "github.com/exfury/fury/v15/x/erc20/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
+	incentivestypes "github.com/exfury/fury/v15/x/incentives/types"
+	inflationtypes "github.com/exfury/fury/v15/x/inflation/types"
+	recoverytypes "github.com/exfury/fury/v15/x/recovery/types"
+	revenuetypes "github.com/exfury/fury/v15/x/revenue/v1/types"
+	vestingtypes "github.com/exfury/fury/v15/x/vesting/types"
 )
 
 // StoreKeys returns the application store keys,
@@ -54,7 +54,7 @@ func StoreKeys() (
 		icahosttypes.StoreKey,
 		// ethermint keys
 		evmtypes.StoreKey, feemarkettypes.StoreKey,
-		// evmos keys
+		// fury keys
 		inflationtypes.StoreKey, erc20types.StoreKey, incentivestypes.StoreKey,
 		epochstypes.StoreKey, claimstypes.StoreKey, vestingtypes.StoreKey,
 		revenuetypes.StoreKey, recoverytypes.StoreKey,

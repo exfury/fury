@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package types
 
 import (
@@ -11,12 +11,12 @@ import (
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/params"
 
-	"github.com/evmos/evmos/v15/types"
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/types"
+	"github.com/exfury/fury/v15/utils"
 )
 
 var (
-	// DefaultEVMDenom defines the default EVM denomination on Evmos
+	// DefaultEVMDenom defines the default EVM denomination on Fury
 	DefaultEVMDenom = utils.BaseDenom
 	// DefaultAllowUnprotectedTxs rejects all unprotected txs (i.e false)
 	DefaultAllowUnprotectedTxs = false

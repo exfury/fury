@@ -1,7 +1,7 @@
 local config = import 'default.jsonnet';
 
 config {
-  'evmos_9000-1'+: {
+  'fury_9000-1'+: {
     genesis+: {
       app_state+: {
         feemarket+: {

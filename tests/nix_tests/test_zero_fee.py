@@ -3,25 +3,25 @@ from pathlib import Path
 import pytest
 from web3 import Web3
 
-from .network import setup_custom_evmos
+from .network import setup_custom_fury
 from .utils import ADDRS, eth_to_bech32, wait_for_fn
 
 
 @pytest.fixture(scope="module")
-def evmos(request, tmp_path_factory):
-    yield from setup_custom_evmos(
+def fury(request, tmp_path_factory):
+    yield from setup_custom_fury(
         tmp_path_factory.mktemp("zero-fee"),
         26900,
         Path(__file__).parent / "configs/zero-fee.jsonnet",
     )
 
 
-def test_cosmos_tx(evmos):
+def test_cosmos_tx(fury):
     """
     test basic cosmos transaction works with zero fees
     """
-    denom = "aevmos"
-    cli = evmos.cosmos_cli()
+    denom = "afury"
+    cli = fury.cosmos_cli()
     sender = eth_to_bech32(ADDRS["signer1"])
     receiver = eth_to_bech32(ADDRS["signer2"])
     amt = 1000
@@ -57,11 +57,11 @@ def test_cosmos_tx(evmos):
     assert old_src_balance - amt == new_src_balance
 
 
-def test_eth_tx(evmos):
+def test_eth_tx(fury):
     """
     test basic Ethereum transaction works with zero fees
     """
-    w3: Web3 = evmos.w3
+    w3: Web3 = fury.w3
 
     sender = ADDRS["signer1"]
     receiver = ADDRS["signer2"]

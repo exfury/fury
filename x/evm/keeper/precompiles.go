@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package keeper
 
@@ -15,12 +15,12 @@ import (
 	distributionkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	channelkeeper "github.com/cosmos/ibc-go/v7/modules/core/04-channel/keeper"
-	distprecompile "github.com/evmos/evmos/v15/precompiles/distribution"
-	ics20precompile "github.com/evmos/evmos/v15/precompiles/ics20"
-	stakingprecompile "github.com/evmos/evmos/v15/precompiles/staking"
-	vestingprecompile "github.com/evmos/evmos/v15/precompiles/vesting"
-	transferkeeper "github.com/evmos/evmos/v15/x/ibc/transfer/keeper"
-	vestingkeeper "github.com/evmos/evmos/v15/x/vesting/keeper"
+	distprecompile "github.com/exfury/fury/v15/precompiles/distribution"
+	ics20precompile "github.com/exfury/fury/v15/precompiles/ics20"
+	stakingprecompile "github.com/exfury/fury/v15/precompiles/staking"
+	vestingprecompile "github.com/exfury/fury/v15/precompiles/vesting"
+	transferkeeper "github.com/exfury/fury/v15/x/ibc/transfer/keeper"
+	vestingkeeper "github.com/exfury/fury/v15/x/vesting/keeper"
 )
 
 // AvailablePrecompiles returns the list of all available precompiled contracts.

@@ -9,12 +9,12 @@ import (
 	clienttypes "github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
 	channeltypes "github.com/cosmos/ibc-go/v7/modules/core/04-channel/types"
 	ibcgotesting "github.com/cosmos/ibc-go/v7/testing"
-	"github.com/evmos/evmos/v15/app"
-	ibctesting "github.com/evmos/evmos/v15/ibc/testing"
-	"github.com/evmos/evmos/v15/utils"
-	claimstypes "github.com/evmos/evmos/v15/x/claims/types"
-	inflationtypes "github.com/evmos/evmos/v15/x/inflation/types"
-	"github.com/evmos/evmos/v15/x/recovery/types"
+	"github.com/exfury/fury/v15/app"
+	ibctesting "github.com/exfury/fury/v15/ibc/testing"
+	"github.com/exfury/fury/v15/utils"
+	claimstypes "github.com/exfury/fury/v15/x/claims/types"
+	inflationtypes "github.com/exfury/fury/v15/x/inflation/types"
+	"github.com/exfury/fury/v15/x/recovery/types"
 )
 
 func CreatePacket(amount, denom, sender, receiver, srcPort, srcChannel, dstPort, dstChannel string, seq, timeout uint64) channeltypes.Packet {
@@ -39,33 +39,33 @@ func CreatePacket(amount, denom, sender, receiver, srcPort, srcChannel, dstPort,
 func (suite *IBCTestingSuite) SetupTest() {
 	// initializes 3 test chains
 	suite.coordinator = ibctesting.NewCoordinator(suite.T(), 1, 2)
-	suite.EvmosChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(1))
+	suite.FuryChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(1))
 	suite.IBCOsmosisChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(2))
 	suite.IBCCosmosChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(3))
-	suite.coordinator.CommitNBlocks(suite.EvmosChain, 2)
+	suite.coordinator.CommitNBlocks(suite.FuryChain, 2)
 	suite.coordinator.CommitNBlocks(suite.IBCOsmosisChain, 2)
 	suite.coordinator.CommitNBlocks(suite.IBCCosmosChain, 2)
 
-	// Mint coins locked on the evmos account generated with secp.
+	// Mint coins locked on the fury account generated with secp.
 	amt, ok := sdk.NewIntFromString("1000000000000000000000")
 	suite.Require().True(ok)
-	coinEvmos := sdk.NewCoin(utils.BaseDenom, amt)
-	coins := sdk.NewCoins(coinEvmos)
-	err := suite.EvmosChain.App.(*app.Evmos).BankKeeper.MintCoins(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, coins)
+	coinFury := sdk.NewCoin(utils.BaseDenom, amt)
+	coins := sdk.NewCoins(coinFury)
+	err := suite.FuryChain.App.(*app.Fury).BankKeeper.MintCoins(suite.FuryChain.GetContext(), inflationtypes.ModuleName, coins)
 	suite.Require().NoError(err)
 
 	// Fund sender address to pay fees
-	err = suite.EvmosChain.App.(*app.Evmos).BankKeeper.SendCoinsFromModuleToAccount(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, suite.EvmosChain.SenderAccount.GetAddress(), coins)
+	err = suite.FuryChain.App.(*app.Fury).BankKeeper.SendCoinsFromModuleToAccount(suite.FuryChain.GetContext(), inflationtypes.ModuleName, suite.FuryChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-	coinEvmos = sdk.NewCoin(utils.BaseDenom, sdk.NewInt(10000))
-	coins = sdk.NewCoins(coinEvmos)
-	err = suite.EvmosChain.App.(*app.Evmos).BankKeeper.MintCoins(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, coins)
+	coinFury = sdk.NewCoin(utils.BaseDenom, sdk.NewInt(10000))
+	coins = sdk.NewCoins(coinFury)
+	err = suite.FuryChain.App.(*app.Fury).BankKeeper.MintCoins(suite.FuryChain.GetContext(), inflationtypes.ModuleName, coins)
 	suite.Require().NoError(err)
-	err = suite.EvmosChain.App.(*app.Evmos).BankKeeper.SendCoinsFromModuleToAccount(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
+	err = suite.FuryChain.App.(*app.Fury).BankKeeper.SendCoinsFromModuleToAccount(suite.FuryChain.GetContext(), inflationtypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-	// Mint coins on the osmosis side which we'll use to unlock our aevmos
+	// Mint coins on the osmosis side which we'll use to unlock our afury
 	coinOsmo := sdk.NewCoin("uosmo", sdk.NewInt(10))
 	coins = sdk.NewCoins(coinOsmo)
 	err = suite.IBCOsmosisChain.GetSimApp().BankKeeper.MintCoins(suite.IBCOsmosisChain.GetContext(), minttypes.ModuleName, coins)
@@ -73,7 +73,7 @@ func (suite *IBCTestingSuite) SetupTest() {
 	err = suite.IBCOsmosisChain.GetSimApp().BankKeeper.SendCoinsFromModuleToAccount(suite.IBCOsmosisChain.GetContext(), minttypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-	// Mint coins on the cosmos side which we'll use to unlock our aevmos
+	// Mint coins on the cosmos side which we'll use to unlock our afury
 	coinAtom := sdk.NewCoin("uatom", sdk.NewInt(10))
 	coins = sdk.NewCoins(coinAtom)
 	err = suite.IBCCosmosChain.GetSimApp().BankKeeper.MintCoins(suite.IBCCosmosChain.GetContext(), minttypes.ModuleName, coins)
@@ -95,30 +95,30 @@ func (suite *IBCTestingSuite) SetupTest() {
 	suite.Require().NoError(err)
 
 	claimparams := claimstypes.DefaultParams()
-	claimparams.AirdropStartTime = suite.EvmosChain.GetContext().BlockTime()
+	claimparams.AirdropStartTime = suite.FuryChain.GetContext().BlockTime()
 	claimparams.EnableClaims = true
-	err = suite.EvmosChain.App.(*app.Evmos).ClaimsKeeper.SetParams(suite.EvmosChain.GetContext(), claimparams)
+	err = suite.FuryChain.App.(*app.Fury).ClaimsKeeper.SetParams(suite.FuryChain.GetContext(), claimparams)
 	suite.Require().NoError(err)
 
 	params := types.DefaultParams()
 	params.EnableRecovery = true
-	err = suite.EvmosChain.App.(*app.Evmos).RecoveryKeeper.SetParams(suite.EvmosChain.GetContext(), params)
+	err = suite.FuryChain.App.(*app.Fury).RecoveryKeeper.SetParams(suite.FuryChain.GetContext(), params)
 	suite.Require().NoError(err)
 
-	evmParams := suite.EvmosChain.App.(*app.Evmos).EvmKeeper.GetParams(s.EvmosChain.GetContext())
+	evmParams := suite.FuryChain.App.(*app.Fury).EvmKeeper.GetParams(s.FuryChain.GetContext())
 	evmParams.EvmDenom = utils.BaseDenom
-	err = suite.EvmosChain.App.(*app.Evmos).EvmKeeper.SetParams(s.EvmosChain.GetContext(), evmParams)
+	err = suite.FuryChain.App.(*app.Fury).EvmKeeper.SetParams(s.FuryChain.GetContext(), evmParams)
 	suite.Require().NoError(err)
 
-	suite.pathOsmosisEvmos = ibctesting.NewTransferPath(suite.IBCOsmosisChain, suite.EvmosChain) // clientID, connectionID, channelID empty
-	suite.pathCosmosEvmos = ibctesting.NewTransferPath(suite.IBCCosmosChain, suite.EvmosChain)
+	suite.pathOsmosisFury = ibctesting.NewTransferPath(suite.IBCOsmosisChain, suite.FuryChain) // clientID, connectionID, channelID empty
+	suite.pathCosmosFury = ibctesting.NewTransferPath(suite.IBCCosmosChain, suite.FuryChain)
 	suite.pathOsmosisCosmos = ibctesting.NewTransferPath(suite.IBCCosmosChain, suite.IBCOsmosisChain)
-	ibctesting.SetupPath(suite.coordinator, suite.pathOsmosisEvmos) // clientID, connectionID, channelID filled
-	ibctesting.SetupPath(suite.coordinator, suite.pathCosmosEvmos)
+	ibctesting.SetupPath(suite.coordinator, suite.pathOsmosisFury) // clientID, connectionID, channelID filled
+	ibctesting.SetupPath(suite.coordinator, suite.pathCosmosFury)
 	ibctesting.SetupPath(suite.coordinator, suite.pathOsmosisCosmos)
-	suite.Require().Equal("07-tendermint-0", suite.pathOsmosisEvmos.EndpointA.ClientID)
-	suite.Require().Equal("connection-0", suite.pathOsmosisEvmos.EndpointA.ConnectionID)
-	suite.Require().Equal("channel-0", suite.pathOsmosisEvmos.EndpointA.ChannelID)
+	suite.Require().Equal("07-tendermint-0", suite.pathOsmosisFury.EndpointA.ClientID)
+	suite.Require().Equal("connection-0", suite.pathOsmosisFury.EndpointA.ConnectionID)
+	suite.Require().Equal("channel-0", suite.pathOsmosisFury.EndpointA.ChannelID)
 }
 
 var timeoutHeight = clienttypes.NewHeight(1000, 1000)

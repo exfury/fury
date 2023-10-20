@@ -1,12 +1,12 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	v2 "github.com/evmos/evmos/v15/x/recovery/migrations/v2"
-	"github.com/evmos/evmos/v15/x/recovery/types"
+	v2 "github.com/exfury/fury/v15/x/recovery/migrations/v2"
+	"github.com/exfury/fury/v15/x/recovery/types"
 )
 
 // Migrator is a struct for handling in-place store migrations.

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package epochs
 
@@ -22,9 +22,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/evmos/evmos/v15/x/epochs/client/cli"
-	"github.com/evmos/evmos/v15/x/epochs/keeper"
-	"github.com/evmos/evmos/v15/x/epochs/types"
+	"github.com/exfury/fury/v15/x/epochs/client/cli"
+	"github.com/exfury/fury/v15/x/epochs/keeper"
+	"github.com/exfury/fury/v15/x/epochs/types"
 )
 
 // consensusVersion defines the current x/epochs module consensus version.

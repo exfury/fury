@@ -10,20 +10,20 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	"github.com/evmos/evmos/v15/testutil"
-	feemarkettypes "github.com/evmos/evmos/v15/x/feemarket/types"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/testutil"
+	feemarkettypes "github.com/exfury/fury/v15/x/feemarket/types"
 
-	"github.com/evmos/evmos/v15/app"
-	v12 "github.com/evmos/evmos/v15/app/upgrades/v12"
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/app"
+	v12 "github.com/exfury/fury/v15/app/upgrades/v12"
+	"github.com/exfury/fury/v15/utils"
 )
 
 type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *app.Evmos
+	app         *app.Fury
 	consAddress sdk.ConsAddress
 }
 

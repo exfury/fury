@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package ics20_test
 
 import (
@@ -9,10 +9,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	transfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v7/modules/core/04-channel/types"
-	"github.com/evmos/evmos/v15/precompiles/authorization"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/ics20"
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/precompiles/authorization"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/ics20"
+	"github.com/exfury/fury/v15/utils"
 )
 
 type allowanceTestCase struct {
@@ -340,7 +340,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowance() {
 			cmn.ErrIntegerOverflow,
 		},
 		{
-			"pass - increase allowance by 1 EVMOS for a single allocation with a single coin denomination",
+			"pass - increase allowance by 1 FURY for a single allocation with a single coin denomination",
 			func() []interface{} {
 				path := NewTransferPath(s.chainA, s.chainB)
 				s.coordinator.Setup(path)
@@ -392,7 +392,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowance() {
 			"",
 		},
 		{
-			"pass - increase allowance by 1 Evmos for multiple allocations with a single coin denomination",
+			"pass - increase allowance by 1 Fury for multiple allocations with a single coin denomination",
 			func() []interface{} {
 				path := NewTransferPath(s.chainA, s.chainB)
 				s.coordinator.Setup(path)
@@ -484,7 +484,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowance() {
 			cmn.ErrNegativeAmount,
 		},
 		{
-			"pass - decrease allowance by 1 EVMOS for a single allocation with a single coin denomination",
+			"pass - decrease allowance by 1 FURY for a single allocation with a single coin denomination",
 			func() []interface{} {
 				path := NewTransferPath(s.chainA, s.chainB)
 				s.coordinator.Setup(path)
@@ -546,7 +546,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowance() {
 			"",
 		},
 		{
-			"pass - decrease allowance by 0.5 Evmos for multiple allocations with a single coin denomination",
+			"pass - decrease allowance by 0.5 Fury for multiple allocations with a single coin denomination",
 			func() []interface{} {
 				path := NewTransferPath(s.chainA, s.chainB)
 				s.coordinator.Setup(path)

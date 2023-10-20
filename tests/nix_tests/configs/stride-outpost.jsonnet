@@ -1,7 +1,7 @@
 local config = import 'default.jsonnet';
 
 config {
-  'evmos_9000-1'+: {
+  'fury_9000-1'+: {
     key_name: 'signer1',
     'app-config'+: {
       'index-events': super['index-events'] + ['message.action'],
@@ -110,7 +110,7 @@ config {
     },
     chains: [
       {
-        id: 'evmos_9000-1',
+        id: 'fury_9000-1',
         max_gas: 3000000,
         default_gas: 100000,
         gas_multiplier: 1.2,
@@ -122,7 +122,7 @@ config {
         },
         gas_price: {
           price: 40000000000,
-          denom: 'aevmos',
+          denom: 'afury',
         },
         extension_options: [{
           type: 'ethermint_dynamic_fee',

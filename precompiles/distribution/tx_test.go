@@ -5,16 +5,16 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/evmos/evmos/v15/precompiles/testutil"
+	"github.com/exfury/fury/v15/precompiles/testutil"
 
 	"github.com/ethereum/go-ethereum/common"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/distribution/types"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/distribution"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/utils"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/distribution"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/utils"
 )
 
 func (s *PrecompileTestSuite) TestSetWithdrawAddress() {
@@ -198,7 +198,7 @@ func (s *PrecompileTestSuite) TestWithdrawDelegatorRewards() {
 		s.Run(tc.name, func() {
 			s.SetupTest()
 
-			// sanity check to make sure the starting balance is always 5 EVMOS
+			// sanity check to make sure the starting balance is always 5 FURY
 			balance := s.app.BankKeeper.GetBalance(s.ctx, s.address.Bytes(), utils.BaseDenom)
 			s.Require().Equal(balance.Amount.BigInt(), big.NewInt(5000000000000000000))
 

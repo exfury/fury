@@ -12,10 +12,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	evmostypes "github.com/evmos/evmos/v15/types"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	furytypes "github.com/exfury/fury/v15/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 
-	"github.com/evmos/evmos/v15/x/incentives/types"
+	"github.com/exfury/fury/v15/x/incentives/types"
 )
 
 var _ = Describe("Performing EVM transactions", Ordered, func() {
@@ -70,7 +70,7 @@ var _ = Describe("Distribution", Ordered, func() {
 		s.Require().NoError(err)
 
 		// set a EOA account for the address
-		eoa := &evmostypes.EthAccount{
+		eoa := &furytypes.EthAccount{
 			BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(s.address.Bytes()), nil, 0, 0),
 			CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).String(),
 		}
@@ -80,9 +80,9 @@ var _ = Describe("Distribution", Ordered, func() {
 		acc := s.app.AccountKeeper.GetAccount(s.ctx, s.address.Bytes())
 		s.Require().NotNil(acc)
 
-		ethAccount, ok := acc.(evmostypes.EthAccountI)
+		ethAccount, ok := acc.(furytypes.EthAccountI)
 		s.Require().True(ok)
-		s.Require().Equal(evmostypes.AccountTypeEOA, ethAccount.Type())
+		s.Require().Equal(furytypes.AccountTypeEOA, ethAccount.Type())
 
 		contractAddr = contract
 		moduleAcc = s.app.AccountKeeper.GetModuleAddress(types.ModuleName)

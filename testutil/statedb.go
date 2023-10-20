@@ -1,13 +1,13 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package testutil
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/evmos/evmos/v15/app/ante/evm"
-	"github.com/evmos/evmos/v15/x/evm/statedb"
+	"github.com/exfury/fury/v15/app/ante/evm"
+	"github.com/exfury/fury/v15/x/evm/statedb"
 )
 
 // NewStateDB returns a new StateDB for testing purposes.

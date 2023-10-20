@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package authorization
 
@@ -14,7 +14,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
 	"golang.org/x/exp/slices"
 )
 
@@ -131,7 +131,7 @@ func CheckDistributionApprovalArgs(args []interface{}, origin common.Address) (c
 	for i, addr := range allowedList {
 		// If the address is hex, convert it to bech32
 		if common.IsHexAddress(addr) {
-			allowedList[i], err = sdk.Bech32ifyAddressBytes("evmos", common.HexToAddress(addr).Bytes())
+			allowedList[i], err = sdk.Bech32ifyAddressBytes("fury", common.HexToAddress(addr).Bytes())
 			if err != nil {
 				return common.Address{}, nil, nil, fmt.Errorf("failed to convert hex address to bech32: %w", err)
 			}

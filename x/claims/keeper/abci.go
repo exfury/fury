@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 
 package keeper
 
@@ -9,9 +9,9 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	vestexported "github.com/cosmos/cosmos-sdk/x/auth/vesting/exported"
-	evmostypes "github.com/evmos/evmos/v15/types"
+	furytypes "github.com/exfury/fury/v15/types"
 
-	"github.com/evmos/evmos/v15/x/claims/types"
+	"github.com/exfury/fury/v15/x/claims/types"
 )
 
 // EndBlocker checks if the airdrop claiming period has ended in order to
@@ -121,7 +121,7 @@ func (k Keeper) ClawbackEmptyAccounts(ctx sdk.Context, claimsDenom string) {
 		}
 
 		// ignore non ETH accounts
-		if _, isEthAccount := acc.(evmostypes.EthAccountI); !isEthAccount {
+		if _, isEthAccount := acc.(furytypes.EthAccountI); !isEthAccount {
 			return false
 		}
 

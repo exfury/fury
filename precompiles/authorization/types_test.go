@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/evmos/evmos/v15/utils"
+	"github.com/exfury/fury/v15/utils"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/evmos/evmos/v15/precompiles/authorization"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	testutiltx "github.com/evmos/evmos/v15/testutil/tx"
+	"github.com/exfury/fury/v15/precompiles/authorization"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	testutiltx "github.com/exfury/fury/v15/testutil/tx"
 	"github.com/stretchr/testify/require"
 )
 

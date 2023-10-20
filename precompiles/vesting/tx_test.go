@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package vesting_test
 
 import (
@@ -8,25 +8,25 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/evmos/evmos/v15/precompiles/testutil"
+	"github.com/exfury/fury/v15/precompiles/testutil"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/vesting"
-	evmosutil "github.com/evmos/evmos/v15/testutil"
-	evmosutiltx "github.com/evmos/evmos/v15/testutil/tx"
-	evmostypes "github.com/evmos/evmos/v15/types"
-	"github.com/evmos/evmos/v15/utils"
-	vestingtypes "github.com/evmos/evmos/v15/x/vesting/types"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/vesting"
+	furyutil "github.com/exfury/fury/v15/testutil"
+	furyutiltx "github.com/exfury/fury/v15/testutil/tx"
+	furytypes "github.com/exfury/fury/v15/types"
+	"github.com/exfury/fury/v15/utils"
+	vestingtypes "github.com/exfury/fury/v15/x/vesting/types"
 )
 
 var (
 	balances         = []cmn.Coin{{Denom: utils.BaseDenom, Amount: big.NewInt(1000)}}
 	quarter          = []cmn.Coin{{Denom: utils.BaseDenom, Amount: big.NewInt(250)}}
 	balancesSdkCoins = sdk.NewCoins(sdk.NewInt64Coin(utils.BaseDenom, 1000))
-	toAddr           = evmosutiltx.GenerateAddress()
-	funderAddr       = evmosutiltx.GenerateAddress()
-	diffFunderAddr   = evmosutiltx.GenerateAddress()
+	toAddr           = furyutiltx.GenerateAddress()
+	funderAddr       = furyutiltx.GenerateAddress()
+	diffFunderAddr   = furyutiltx.GenerateAddress()
 	lockupPeriods    = []vesting.Period{{Length: 5000, Amount: balances}}
 	vestingPeriods   = []vesting.Period{
 		{Length: 2000, Amount: quarter},
@@ -60,7 +60,7 @@ func (s *PrecompileTestSuite) TestCreateClawbackVestingAccount() {
 		{
 			name: "fail - different origin than vesting address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := furyutiltx.GenerateAddress()
 				return []interface{}{
 					funderAddr,
 					differentAddr,
@@ -136,7 +136,7 @@ func (s *PrecompileTestSuite) TestFundVestingAccount() {
 		{
 			name: "fail - different origin than funder address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := furyutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					toAddr,
@@ -153,7 +153,7 @@ func (s *PrecompileTestSuite) TestFundVestingAccount() {
 			"success",
 			func() []interface{} {
 				s.CreateTestClawbackVestingAccount(s.address, toAddr)
-				err = evmosutil.FundAccount(s.ctx, s.app.BankKeeper, toAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, sdk.NewInt(100))))
+				err = furyutil.FundAccount(s.ctx, s.app.BankKeeper, toAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, sdk.NewInt(100))))
 				return []interface{}{
 					s.address,
 					toAddr,
@@ -223,7 +223,7 @@ func (s *PrecompileTestSuite) TestClawback() {
 		{
 			name: "fail - different origin than funder address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := furyutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					toAddr,
@@ -301,7 +301,7 @@ func (s *PrecompileTestSuite) TestUpdateVestingFunder() {
 		{
 			name: "fail - different origin than funder address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := furyutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					toAddr,
@@ -412,7 +412,7 @@ func (s *PrecompileTestSuite) TestConvertVestingAccount() {
 
 				// Check if the vesting account was converted back to an EthAccountI
 				account := s.app.AccountKeeper.GetAccount(s.ctx, toAddr.Bytes())
-				_, ok := account.(evmostypes.EthAccountI)
+				_, ok := account.(furytypes.EthAccountI)
 				s.Require().True(ok)
 			},
 			false,

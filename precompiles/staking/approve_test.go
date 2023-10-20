@@ -6,17 +6,17 @@ import (
 	"time"
 
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	evmosutiltx "github.com/evmos/evmos/v15/testutil/tx"
+	furyutiltx "github.com/exfury/fury/v15/testutil/tx"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkauthz "github.com/cosmos/cosmos-sdk/x/authz"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/evmos/evmos/v15/precompiles/authorization"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/staking"
-	"github.com/evmos/evmos/v15/precompiles/testutil"
-	evmosutil "github.com/evmos/evmos/v15/testutil"
+	"github.com/exfury/fury/v15/precompiles/authorization"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/staking"
+	"github.com/exfury/fury/v15/precompiles/testutil"
+	furyutil "github.com/exfury/fury/v15/testutil"
 )
 
 func (s *PrecompileTestSuite) TestApprove() {
@@ -191,7 +191,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{
-			"success - MsgDelegate with 1 Evmos as limit amount",
+			"success - MsgDelegate with 1 Fury as limit amount",
 			func(_ *vm.Contract) []interface{} {
 				return []interface{}{
 					s.address,
@@ -217,7 +217,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			func(_ *vm.Contract) []interface{} {
 				// Commit block (otherwise test logic will not be executed correctly, i.e. somehow unbonding does not take effect)
 				var err error
-				s.ctx, err = evmosutil.Commit(s.ctx, s.app, time.Second, nil)
+				s.ctx, err = furyutil.Commit(s.ctx, s.app, time.Second, nil)
 				s.Require().NoError(err, "failed to commit block")
 
 				// Jail a validator
@@ -233,7 +233,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 				s.Require().Equal(sdk.NewInt(1e18), amount, "expected different amount of tokens to be unbonded")
 
 				// Commit block and update time to one year later
-				s.ctx, err = evmosutil.Commit(s.ctx, s.app, time.Hour*24*365, nil)
+				s.ctx, err = furyutil.Commit(s.ctx, s.app, time.Hour*24*365, nil)
 				s.Require().NoError(err, "failed to commit block")
 
 				return []interface{}{
@@ -258,7 +258,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{
-			"success - MsgUndelegate with 1 Evmos as limit amount",
+			"success - MsgUndelegate with 1 Fury as limit amount",
 			func(_ *vm.Contract) []interface{} {
 				return []interface{}{
 					s.address,
@@ -280,7 +280,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{
-			"success - MsgRedelegate with 1 Evmos as limit amount",
+			"success - MsgRedelegate with 1 Fury as limit amount",
 			func(_ *vm.Contract) []interface{} {
 				return []interface{}{
 					s.address,
@@ -300,7 +300,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{
-			"success - MsgRedelegate, MsgUndelegate and MsgDelegate with 1 Evmos as limit amount",
+			"success - MsgRedelegate, MsgUndelegate and MsgDelegate with 1 Fury as limit amount",
 			func(_ *vm.Contract) []interface{} {
 				return []interface{}{
 					s.address,
@@ -467,7 +467,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowance() {
 			"amount by which the allowance should be decreased is greater than the authorization limit",
 		},
 		{
-			"success - decrease delegate authorization allowance by 1 Evmos",
+			"success - decrease delegate authorization allowance by 1 Fury",
 			func(_ *vm.Contract) []interface{} {
 				s.ApproveAndCheckAuthz(method, staking.DelegateMsg, big.NewInt(2e18))
 				return []interface{}{
@@ -591,7 +591,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowance() {
 			"",
 		},
 		{
-			"success - increase delegate authorization allowance by 1 Evmos",
+			"success - increase delegate authorization allowance by 1 Fury",
 			func() []interface{} {
 				s.ApproveAndCheckAuthz(method, staking.DelegateMsg, big.NewInt(1e18))
 				return []interface{}{
@@ -633,7 +633,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowance() {
 
 func (s *PrecompileTestSuite) TestRevoke() {
 	method := s.precompile.Methods[authorization.RevokeMethod]
-	granteeAddr := evmosutiltx.GenerateAddress()
+	granteeAddr := furyutiltx.GenerateAddress()
 	granterAddr := s.address
 	createdAuthz := staking.DelegateAuthz
 	approvedCoin := &sdk.Coin{Denom: s.bondDenom, Amount: sdk.NewInt(1e18)}

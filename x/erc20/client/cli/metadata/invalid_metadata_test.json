@@ -4,18 +4,18 @@
       "description": 1,
       "denom_units": [
         {
-          "denom": "aevmos",
+          "denom": "afury",
           "exponent": 0
         },
         {
-          "denom": "evmos",
+          "denom": "fury",
           "exponent": 18
         }
       ],
-      "base": "aevmos",
-      "display": "aevmos",
-      "name": "aevmos",
-      "symbol": "EVMOS"
+      "base": "afury",
+      "display": "afury",
+      "name": "afury",
+      "symbol": "FURY"
     }
   ]
 }

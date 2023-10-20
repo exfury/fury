@@ -7,9 +7,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/evmos/evmos/v15/precompiles/authorization"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/staking"
+	"github.com/exfury/fury/v15/precompiles/authorization"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/staking"
 )
 
 func (s *PrecompileTestSuite) TestApprovalEvent() {
@@ -91,7 +91,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowanceEvent() {
 		postCheck   func()
 	}{
 		{
-			"success - increased allowance for all 3 methods by 1 evmos",
+			"success - increased allowance for all 3 methods by 1 fury",
 			func() []interface{} {
 				return []interface{}{
 					s.address,
@@ -129,7 +129,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowanceEvent() {
 			err := s.CreateAuthorization(s.address, staking.DelegateAuthz, nil)
 			s.Require().NoError(err)
 
-			// Approve first with 1 evmos
+			// Approve first with 1 fury
 			_, err = s.precompile.Approve(s.ctx, s.address, s.stateDB, &approvalMethod, tc.malleate())
 			s.Require().NoError(err)
 
@@ -158,7 +158,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowanceEvent() {
 		postCheck   func()
 	}{
 		{
-			"success - decreased allowance for all 3 methods by 1 evmos",
+			"success - decreased allowance for all 3 methods by 1 fury",
 			func() []interface{} {
 				return []interface{}{
 					s.address,
@@ -196,7 +196,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowanceEvent() {
 			err := s.CreateAuthorization(s.address, staking.DelegateAuthz, nil)
 			s.Require().NoError(err)
 
-			// Approve first with 2 evmos
+			// Approve first with 2 fury
 			args := []interface{}{
 				s.address,
 				big.NewInt(2000000000000000000),

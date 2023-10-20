@@ -1,23 +1,23 @@
 import pytest
 
-from .network import setup_evmos
+from .network import setup_fury
 from .utils import CONTRACTS, deploy_contract, w3_wait_for_new_blocks
 
 
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
+def custom_fury(tmp_path_factory):
     path = tmp_path_factory.mktemp("storage-proof")
-    yield from setup_evmos(path, 26800)
+    yield from setup_fury(path, 26800)
 
 
-@pytest.fixture(scope="module", params=["evmos", "geth"])
-def cluster(request, custom_evmos, geth):
+@pytest.fixture(scope="module", params=["fury", "geth"])
+def cluster(request, custom_fury, geth):
     """
-    run on both evmos and geth
+    run on both fury and geth
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
+    if provider == "fury":
+        yield custom_fury
     elif provider == "geth":
         yield geth
     else:

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package v14_test
 
 import (
@@ -20,26 +20,26 @@ import (
 	"github.com/cosmos/ibc-go/v7/testing/mock"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	evmosapp "github.com/evmos/evmos/v15/app"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/vesting"
-	evmosutil "github.com/evmos/evmos/v15/testutil"
-	testutiltx "github.com/evmos/evmos/v15/testutil/tx"
-	evmostypes "github.com/evmos/evmos/v15/types"
-	"github.com/evmos/evmos/v15/utils"
-	"github.com/evmos/evmos/v15/x/evm/statedb"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
-	inflationtypes "github.com/evmos/evmos/v15/x/inflation/types"
+	furyapp "github.com/exfury/fury/v15/app"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/vesting"
+	furyutil "github.com/exfury/fury/v15/testutil"
+	testutiltx "github.com/exfury/fury/v15/testutil/tx"
+	furytypes "github.com/exfury/fury/v15/types"
+	"github.com/exfury/fury/v15/utils"
+	"github.com/exfury/fury/v15/x/evm/statedb"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
+	inflationtypes "github.com/exfury/fury/v15/x/inflation/types"
 )
 
-// SetupWithGenesisValSet initializes a new EvmosApp with a validator set and genesis accounts
+// SetupWithGenesisValSet initializes a new FuryApp with a validator set and genesis accounts
 // that also act as delegators. For simplicity, each validator is bonded with a delegation
 // of one consensus engine unit (10^6) in the default token of the simapp from first genesis
 // account. A Nop logger is set in SimApp.
 func (s *UpgradesTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSet, genAccs []authtypes.GenesisAccount, balances ...banktypes.Balance) {
-	appI, genesisState := evmosapp.SetupTestingApp(cmn.DefaultChainID)()
-	app, ok := appI.(*evmosapp.Evmos)
+	appI, genesisState := furyapp.SetupTestingApp(cmn.DefaultChainID)()
+	app, ok := appI.(*furyapp.Fury)
 	s.Require().True(ok)
 
 	// set genesis accounts
@@ -49,7 +49,7 @@ func (s *UpgradesTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSet,
 	validators := make([]stakingtypes.Validator, 0, len(valSet.Validators))
 	delegations := make([]stakingtypes.Delegation, 0, len(valSet.Validators))
 
-	bondAmt := sdk.TokensFromConsensusPower(1, evmostypes.PowerReduction)
+	bondAmt := sdk.TokensFromConsensusPower(1, furytypes.PowerReduction)
 
 	for _, val := range valSet.Validators {
 		pk, err := cryptocodec.FromTmPubKeyInterface(val.PubKey)
@@ -76,7 +76,7 @@ func (s *UpgradesTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSet,
 
 	// set validators and delegations
 	stakingParams := stakingtypes.DefaultParams()
-	// set bond demon to be aevmos
+	// set bond demon to be afury
 	stakingParams.BondDenom = utils.BaseDenom
 	stakingGenesis := stakingtypes.NewGenesisState(stakingParams, validators, delegations)
 	genesisState[stakingtypes.ModuleName] = app.AppCodec().MustMarshalJSON(stakingGenesis)
@@ -104,7 +104,7 @@ func (s *UpgradesTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSet,
 	stateBytes, err := json.MarshalIndent(genesisState, "", " ")
 	s.Require().NoError(err)
 
-	header := evmosutil.NewHeader(
+	header := furyutil.NewHeader(
 		2,
 		time.Now().UTC(),
 		cmn.DefaultChainID,
@@ -118,7 +118,7 @@ func (s *UpgradesTestSuite) SetupWithGenesisValSet(valSet *tmtypes.ValidatorSet,
 		abci.RequestInitChain{
 			ChainId:         cmn.DefaultChainID,
 			Validators:      []abci.ValidatorUpdate{},
-			ConsensusParams: evmosapp.DefaultConsensusParams,
+			ConsensusParams: furyapp.DefaultConsensusParams,
 			AppStateBytes:   stateBytes,
 		},
 	)
@@ -153,12 +153,12 @@ func (s *UpgradesTestSuite) DoSetupTest() {
 
 	baseAcc := authtypes.NewBaseAccount(priv.PubKey().Address().Bytes(), priv.PubKey(), 0, 0)
 
-	acc := &evmostypes.EthAccount{
+	acc := &furytypes.EthAccount{
 		BaseAccount: baseAcc,
 		CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 	}
 
-	amount := sdk.TokensFromConsensusPower(5, evmostypes.PowerReduction)
+	amount := sdk.TokensFromConsensusPower(5, furytypes.PowerReduction)
 
 	balance := banktypes.Balance{
 		Address: acc.GetAddress().String(),
@@ -201,7 +201,7 @@ func (s *UpgradesTestSuite) DoSetupTest() {
 // NextBlock commits the current block and sets up the next block.
 func (s *UpgradesTestSuite) NextBlock() {
 	var err error
-	s.ctx, err = evmosutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second, nil)
+	s.ctx, err = furyutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second, nil)
 	s.Require().NoError(err)
 }
 
@@ -269,7 +269,7 @@ func (s *UpgradesTestSuite) getDelegationSharesMap() map[string]sdk.Dec {
 // the account migrations not succeeding.
 func CreateDelegationWithZeroTokens(
 	ctx sdk.Context,
-	app *evmosapp.Evmos,
+	app *furyapp.Fury,
 	priv *ethsecp256k1.PrivKey,
 	delegator sdk.AccAddress,
 	validator stakingtypes.Validator,
@@ -291,10 +291,10 @@ func CreateDelegationWithZeroTokens(
 	return delegation, nil
 }
 
-// Delegate is a helper function to delegation one atto-Evmos to a validator.
+// Delegate is a helper function to delegation one atto-Fury to a validator.
 func Delegate(
 	ctx sdk.Context,
-	app *evmosapp.Evmos,
+	app *furyapp.Fury,
 	priv *ethsecp256k1.PrivKey,
 	delegator sdk.AccAddress,
 	validator stakingtypes.Validator,
@@ -303,7 +303,7 @@ func Delegate(
 	stakingDenom := app.StakingKeeper.BondDenom(ctx)
 
 	msgDelegate := stakingtypes.NewMsgDelegate(delegator, validator.GetOperator(), sdk.NewInt64Coin(stakingDenom, amount))
-	_, err := evmosutil.DeliverTx(ctx, app, priv, nil, msgDelegate)
+	_, err := furyutil.DeliverTx(ctx, app, priv, nil, msgDelegate)
 	if err != nil {
 		return stakingtypes.Delegation{}, fmt.Errorf("failed to delegate: %w", err)
 	}

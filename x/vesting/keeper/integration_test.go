@@ -19,14 +19,14 @@ import (
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/evmos/evmos/v15/contracts"
-	"github.com/evmos/evmos/v15/crypto/ethsecp256k1"
-	"github.com/evmos/evmos/v15/testutil"
-	utiltx "github.com/evmos/evmos/v15/testutil/tx"
-	"github.com/evmos/evmos/v15/utils"
-	erc20types "github.com/evmos/evmos/v15/x/erc20/types"
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
-	"github.com/evmos/evmos/v15/x/vesting/types"
+	"github.com/exfury/fury/v15/contracts"
+	"github.com/exfury/fury/v15/crypto/ethsecp256k1"
+	"github.com/exfury/fury/v15/testutil"
+	utiltx "github.com/exfury/fury/v15/testutil/tx"
+	"github.com/exfury/fury/v15/utils"
+	erc20types "github.com/exfury/fury/v15/x/erc20/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
+	"github.com/exfury/fury/v15/x/vesting/types"
 )
 
 // TestClawbackAccount is a struct to store all relevant information that is corresponding
@@ -45,7 +45,7 @@ var err error
 // employee starts before mainnet launch (periodsCliff < lockupPeriod)
 //
 // Example:
-// 21/10 Employee joins Evmos and vesting starts
+// 21/10 Employee joins Fury and vesting starts
 // 22/03 Mainnet launch
 // 22/09 Cliff ends
 // 23/02 Lock ends
@@ -607,7 +607,7 @@ var _ = Describe("Clawback Vesting Accounts", Ordered, func() {
 })
 
 // Example:
-// 21/10 Employee joins Evmos and vesting starts
+// 21/10 Employee joins Fury and vesting starts
 // 22/03 Mainnet launch
 // 22/09 Cliff ends
 // 23/02 Lock ends
@@ -884,7 +884,7 @@ var _ = Describe("Clawback Vesting Accounts - claw back tokens", func() {
 			msgSubmitProposal, err := govv1beta1.NewMsgSubmitProposal(
 				&erc20types.RegisterERC20Proposal{
 					Title:          "test gov upgrade",
-					Description:    "this is an example of a governance proposal to upgrade the evmos app",
+					Description:    "this is an example of a governance proposal to upgrade the fury app",
 					Erc20Addresses: []string{},
 				},
 				sdk.NewCoins(sdk.NewCoin(stakeDenom, sdk.NewInt(1e9))),

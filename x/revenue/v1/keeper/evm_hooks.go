@@ -1,4 +1,4 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
+// Copyright Tharsis Labs Ltd.(Fury)
 // SPDX-License-Identifier:LGPL-3.0-only
 
 package keeper
@@ -10,9 +10,9 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"golang.org/x/exp/slices"
 
-	evmtypes "github.com/evmos/evmos/v15/x/evm/types"
+	evmtypes "github.com/exfury/fury/v15/x/evm/types"
 
-	"github.com/evmos/evmos/v15/x/revenue/v1/types"
+	"github.com/exfury/fury/v15/x/revenue/v1/types"
 )
 
 var _ evmtypes.EvmHooks = Hooks{}

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Fury)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/exfury/fury/blob/main/LICENSE)
 package distribution_test
 
 import (
@@ -13,12 +13,12 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
-	cmn "github.com/evmos/evmos/v15/precompiles/common"
-	"github.com/evmos/evmos/v15/precompiles/distribution"
-	"github.com/evmos/evmos/v15/precompiles/testutil"
-	"github.com/evmos/evmos/v15/precompiles/testutil/contracts"
-	evmosutil "github.com/evmos/evmos/v15/testutil"
-	testutiltx "github.com/evmos/evmos/v15/testutil/tx"
+	cmn "github.com/exfury/fury/v15/precompiles/common"
+	"github.com/exfury/fury/v15/precompiles/distribution"
+	"github.com/exfury/fury/v15/precompiles/testutil"
+	"github.com/exfury/fury/v15/precompiles/testutil/contracts"
+	furyutil "github.com/exfury/fury/v15/testutil"
+	testutiltx "github.com/exfury/fury/v15/testutil/tx"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -268,7 +268,7 @@ var _ = Describe("Calling distribution precompile from EOA", func() {
 		It("should get validator distribution info - validatorDistributionInfo query", func() {
 			addr := sdk.AccAddress(s.validators[0].GetOperator())
 			// fund validator account to make self-delegation
-			err := evmosutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, addr, 10)
+			err := furyutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, addr, 10)
 			Expect(err).To(BeNil())
 			// make a self delegation
 			_, err = s.app.StakingKeeper.Delegate(s.ctx, addr, math.NewInt(1), stakingtypes.Unspecified, s.validators[0], true)
@@ -878,7 +878,7 @@ var _ = Describe("Calling distribution precompile from another contract", func()
 			BeforeEach(func() {
 				addr := sdk.AccAddress(s.validators[0].GetOperator())
 				// fund validator account to make self-delegation
-				err := evmosutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, addr, 10)
+				err := furyutil.FundAccountWithBaseDenom(s.ctx, s.app.BankKeeper, addr, 10)
 				Expect(err).To(BeNil())
 				// make a self delegation
 				_, err = s.app.StakingKeeper.Delegate(s.ctx, addr, math.NewInt(1), stakingtypes.Unspecified, s.validators[0], true)
