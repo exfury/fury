@@ -34,7 +34,7 @@ func MigrateStore(
 	cdc.MustUnmarshal(extraEIPsBz, &extraEIPs)
 
 	// revert ExtraEIP change for Fury testnet
-	if ctx.ChainID() == "fury_9000-4" {
+	if ctx.ChainID() == "highbury_710-4" {
 		extraEIPs.EIPs = []int64{}
 	}
 

@@ -1,7 +1,7 @@
 local config = import 'default.jsonnet';
 
 config {
-  'fury_9000-1'+: {
+  'highbury_710-1'+: {
     validators: super.validators[0:1] + [{
       name: 'fullnode',
     }],

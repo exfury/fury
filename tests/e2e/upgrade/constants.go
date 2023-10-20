@@ -5,7 +5,7 @@ package upgrade
 // The constants used in the upgrade tests are defined here
 const (
 	// the defaultChainID used for testing
-	defaultChainID = "fury_9000-1"
+	defaultChainID = "highbury_710-1"
 
 	// LocalVersionTag defines the docker image ImageTag when building locally
 	LocalVersionTag = "latest"

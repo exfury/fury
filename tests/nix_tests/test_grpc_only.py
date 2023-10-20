@@ -75,7 +75,7 @@ def test_grpc_mode(custom_fury):
     # wait 1 more block for both nodes to avoid node stopped before tnx get included
     for i in range(2):
         wait_for_block(custom_fury.cosmos_cli(i), 1)
-    supervisorctl(custom_fury.base_dir / "../tasks.ini", "stop", "fury_9000-1-node1")
+    supervisorctl(custom_fury.base_dir / "../tasks.ini", "stop", "highbury_710-1-node1")
 
     # run grpc-only mode directly with existing chain state
     with (custom_fury.base_dir / "node1.log").open("a") as logfile:
@@ -119,7 +119,7 @@ def test_grpc_mode(custom_fury):
             rsp = grpc_eth_call(
                 api_port,
                 msg,
-                chain_id="fury_9000",
+                chain_id="highbury_710",
                 proposer_address=proposer_addr,
             )
             assert rsp["code"] != 0, str(rsp)

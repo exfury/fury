@@ -50,7 +50,7 @@ MOUNT_PATH
 
 # '--chain-id' fury cli parameter, used to start nodes with a specific
 # chain-id and submit proposals
-# By default this is 'fury_9000-1'
+# By default this is 'highbury_710-1'
 CHAIN_ID
 ```
 

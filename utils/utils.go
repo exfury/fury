@@ -19,9 +19,9 @@ import (
 
 const (
 	// MainnetChainID defines the Fury EIP155 chain ID for mainnet
-	MainnetChainID = "fury_9001"
+	MainnetChainID = "highbury_4200"
 	// TestnetChainID defines the Fury EIP155 chain ID for testnet
-	TestnetChainID = "fury_9000"
+	TestnetChainID = "highbury_710"
 	// BaseDenom defines the Fury mainnet denomination
 	BaseDenom = "afury"
 )

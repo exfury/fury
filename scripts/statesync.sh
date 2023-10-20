@@ -17,7 +17,7 @@ export PATH=$PATH:~/go/bin
 # go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=badgerdb' -tags badgerdb ./...
 # go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=boltdb' -tags boltdb ./...
 # Initialize chain.
-furyd init test --chain-id fury_9000-2
+furyd init test --chain-id highbury_710-2
 
 # Get Genesis
 wget https://archive.fury.org/mainnet/genesis.json

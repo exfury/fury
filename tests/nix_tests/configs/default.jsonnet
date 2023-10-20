@@ -1,6 +1,6 @@
 {
   dotenv: '../../../scripts/.env',
-  'fury_9000-1': {
+  'highbury_710-1': {
     'account-prefix': 'fury',
     'coin-type': 60,
     cmd: 'furyd',

@@ -37,13 +37,13 @@ func (suite *KeeperTestSuite) TestWithChainID() {
 		},
 		{
 			"success - Fury mainnet chain ID",
-			"fury_9001-2",
+			"highbury_4200-2",
 			9001,
 			false,
 		},
 		{
 			"success - Fury testnet chain ID",
-			"fury_9000-4",
+			"highbury_710-4",
 			9000,
 			false,
 		},

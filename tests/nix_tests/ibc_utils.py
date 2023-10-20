@@ -52,7 +52,7 @@ def prepare_network(tmp_path: Path, file: str, other_chains_names: List[str]):
     # relayer
     hermes = Hermes(fury.base_dir.parent / "relayer.toml")
 
-    chains_to_connect = ["fury_9000-1"]
+    chains_to_connect = ["highbury_710-1"]
 
     # set up the other chains to connect to fury
     for chain in other_chains_names:
@@ -125,9 +125,9 @@ def assert_ready(ibc):
 
 def hermes_transfer(ibc, other_chain_name="chainmain-1", other_chain_denom="basecro"):
     assert_ready(ibc)
-    # chainmain-1 -> fury_9000-1
+    # chainmain-1 -> highbury_710-1
     my_ibc0 = other_chain_name
-    my_ibc1 = "fury_9000-1"
+    my_ibc1 = "highbury_710-1"
     my_channel = "channel-0"
     dst_addr = eth_to_bech32(ADDRS["signer2"])
     src_amount = 10

@@ -15,7 +15,7 @@ def test_block_cmd(fury):
     wait_for_block(node1, 10)
 
     # stop node1
-    supervisorctl(fury.base_dir / "../tasks.ini", "stop", "fury_9000-1-node1")
+    supervisorctl(fury.base_dir / "../tasks.ini", "stop", "highbury_710-1-node1")
 
     # use 'block' CLI cmd in node1
     test_cases = [
@@ -54,6 +54,6 @@ def test_block_cmd(fury):
                 raise
 
     # start node1 again
-    supervisorctl(fury.base_dir / "../tasks.ini", "start", "fury_9000-1-node1")
+    supervisorctl(fury.base_dir / "../tasks.ini", "start", "highbury_710-1-node1")
     # check is chain continues alright
     wait_for_block(node1, 12)

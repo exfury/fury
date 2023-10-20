@@ -1,7 +1,7 @@
 local config = import 'default.jsonnet';
 
 config {
-  'fury_9000-1'+: {
+  'highbury_710-1'+: {
     key_name: 'signer1',
     accounts: super.accounts[:std.length(super.accounts) - 1] + [super.accounts[std.length(super.accounts) - 1] {
       coins: super.coins + ',100000000000ibcfee',
@@ -127,7 +127,7 @@ config {
     },
     chains: [
       {
-        id: 'fury_9000-1',
+        id: 'highbury_710-1',
         max_gas: 3000000,
         default_gas: 100000,
         gas_multiplier: 1.2,
