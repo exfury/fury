@@ -52,7 +52,7 @@ def test_grpc_mode(custom_fury):
     """
     w3 = custom_fury.w3
     contract, _ = deploy_contract(w3, CONTRACTS["TestChainID"])
-    assert 9000 == contract.caller.currentChainID()
+    assert 710 == contract.caller.currentChainID()
 
     msg = {
         "to": contract.address,
@@ -67,7 +67,7 @@ def test_grpc_mode(custom_fury):
         rsp = grpc_eth_call(api_port, msg)
         ret = rsp["ret"]
         valid = ret is not None
-        if valid and 9000 == int.from_bytes(base64.b64decode(ret.encode()), "big"):
+        if valid and 710 == int.from_bytes(base64.b64decode(ret.encode()), "big"):
             success = True
             break
         time.sleep(sleep)
@@ -97,14 +97,14 @@ def test_grpc_mode(custom_fury):
             wait_for_port(api_port)
 
             # in grpc-only mode, grpc query don't work if we don't pass chain_id
-            rsp = grpc_eth_call(api_port, msg, chain_id=9000)
+            rsp = grpc_eth_call(api_port, msg, chain_id=710)
 
             # Even after waiting for the grpc port to be ready,
             # the call gives error that the grpc server is still down
             # for this case, we'll retry the call
             while f"{grpc_port}: connect: connection refused" in rsp["message"]:
                 time.sleep(sleep + 1)
-                rsp = grpc_eth_call(api_port, msg, chain_id=9000)
+                rsp = grpc_eth_call(api_port, msg, chain_id=710)
 
             # it doesn't work without proposer address
             assert rsp["code"] != 0, str(rsp)

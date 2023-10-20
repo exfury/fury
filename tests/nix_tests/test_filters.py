@@ -52,7 +52,7 @@ def cluster(request, custom_fury, fury_indexer, geth):
 
 def test_basic(cluster):
     w3 = cluster.w3
-    assert w3.eth.chain_id == 9000
+    assert w3.eth.chain_id == 710
 
 
 # Smart contract names

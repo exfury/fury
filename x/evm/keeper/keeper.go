@@ -118,8 +118,8 @@ func (k *Keeper) WithChainID(ctx sdk.Context) {
 		panic("chain id already set")
 	}
 
-	if !(chainID.Cmp(big.NewInt(9001)) == 0 || chainID.Cmp(big.NewInt(9000)) == 0) {
-		panic("EVM only supports Fury chain identifiers (9000 or 9001)")
+	if !(chainID.Cmp(big.NewInt(4200)) == 0 || chainID.Cmp(big.NewInt(710)) == 0) {
+		panic("EVM only supports Fury chain identifiers (710 or 4200)")
 	}
 
 	k.eip155ChainID = chainID

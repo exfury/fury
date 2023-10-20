@@ -285,7 +285,7 @@ func (suite *AnteTestSuite) TestRejectMsgsInAuthz() {
 	// create a dummy MsgEthereumTx for the test
 	// otherwise throws error that cannot unpack tx data
 	msgEthereumTx := evmtypes.NewTx(&evmtypes.EvmTxArgs{
-		ChainID:   big.NewInt(9000),
+		ChainID:   big.NewInt(710),
 		Nonce:     0,
 		GasLimit:  1000000,
 		GasFeeCap: suite.app.FeeMarketKeeper.GetBaseFee(suite.ctx),

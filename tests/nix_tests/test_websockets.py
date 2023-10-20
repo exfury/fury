@@ -5,7 +5,7 @@ def test_single_request_netversion(fury):
     response = eth_ws.make_request("net_version", [])
 
     # net_version should be 9000
-    assert response["result"] == "9000", "got " + response["result"] + ", expected 9000"
+    assert response["result"] == "710", "got " + response["result"] + ", expected 710"
 
 
 # note:

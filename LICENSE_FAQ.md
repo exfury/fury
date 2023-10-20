@@ -46,8 +46,8 @@ transaction of economic value.
 "Designated Blockchains" refers to the version of the digital blockchain ledger
 that, at any given time, is recognized as canonical in accordance with the
 blockchain consensus.The initial Designated Blockchains shall be the Fury
-blockchains, identified by chain identifiers 9000 (testing network or testnet)
-and 9001 (main network or mainnet).
+blockchains, identified by chain identifiers 710 (testing network or testnet)
+and 4200 (main network or mainnet).
 
 Apart from Fury repository, Fury is currently building the Fury Software
 Development Kit (Fury SDK), to help developers to create their own
