@@ -69,7 +69,7 @@ build_tags := $(strip $(build_tags))
 # process linker flags
 
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=fury \
-          -X github.com/cosmos/cosmos-sdk/version.AppName=$(FURY_BINARY) \
+          -X github.com/cosmos/cosmos-sdk/version.AppName=furyd \
           -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
           -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
           -X github.com/cometbft/cometbft/version.TMCoreSemVer=$(TMVERSION)
